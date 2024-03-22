@@ -94,6 +94,10 @@ body
   
   font-family: sans-serif;
   color: var(--corFont);
+
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
 /* Inicio Bloco1 */
@@ -298,3 +302,115 @@ body
 
   border-inline: 1px solid var(--corBordaDestaque);
 } 
+
+/* bloco2 */
+
+.bloco2{
+  display: flex;
+  gap: 1rem;
+}
+
+.criarQuestao
+{
+  flex: 2;
+
+  
+  padding: var(--paddingPadrao);
+  background-color: var(--fundoItens);
+}
+
+.requisitosQuestao
+{
+  flex:1;
+  padding: var(--paddingPadrao);
+  background-color: var(--fundoItens);
+  height: max-content;
+}
+
+.requisitosQuestao-divTitulo
+{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.requisitosQuestao-titulo
+{
+  font-size: 16px;
+  font-weight: var(--pesoFontDestaque);
+  color: var(--corFont);
+}
+
+.requisitosQuestao-paragrafo
+{
+  font-size: 16px;
+  font-weight: var(--pesoFontNormal);
+}
+
+.requisitosQuestao-ul
+{
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.requisitosQuestao-li
+{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.criarQuestao-Justificativa
+{
+ padding: .5rem;
+}
+
+.criarQuestao-Titulo
+{
+  font-size: 15px;
+  font-weight: var(--pesoFontDestaque);
+  color: var(--corFont);
+}
+
+.criarQuestaoDiv
+{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.criarQuestao-Alternativas 
+{
+  padding: 1rem;
+}
+
+.titulo
+{
+  font-size: 20px;
+  font-weight: var(--pesoFontDestaque);
+  color: var(--corFont);
+}
+
+.CriarQuestao-botaoSalvar
+{
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.botaoSalvar
+{
+  width: 25rem;
+}
+
+
+.span-justificativa
+{
+  background-color: var(--hoverBotaoCor);
+  color: var(--corFont);
+  border: none;
+}

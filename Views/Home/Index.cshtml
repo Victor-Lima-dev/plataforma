@@ -30,8 +30,8 @@
 
         <div class="perfil container">
             <div class="perfil-divTitulo">
-                <p class="perfil-titulo">Hey</p>
-                <span class="perfil-span span-metrica">30% complete</span>
+                <p class="perfil-titulo">Usuário</p>
+                <span class="perfil-span span-metrica">30% da meta diária batida</span>
             </div>
             <div class="perfil-divMetricas">
                 <div class="perfil-boxMetrica">
@@ -41,7 +41,7 @@
 
 
                 <div class="perfil-boxMetrica">
-                    <span class="span-metrica">Exercícios Diários</span>
+                    <span class="span-metrica">Total de Exercícios</span>
                     <p class="paragrafo-metrica">100</p>
                 </div>
             </div>
@@ -49,11 +49,11 @@
             <div class="perfil-divQuantidades">
                 <div class="perfil-boxQuantidades">
                     <p class="perfil-quantidade paragrafo-metrica">5</p>
-                    <span class="perfil-quantidadeSpan span-metrica ">Listas</span>
+                    <span class="perfil-quantidadeSpan span-metrica ">Questões</span>
                 </div>
                 <div class="perfil-boxQuantidades">
                     <p class="perfil-quantidade paragrafo-metrica">5</p>
-                    <span class="perfil-quantidadeSpan span-metrica">Listas</span>
+                    <span class="perfil-quantidadeSpan span-metrica">Anotações</span>
                 </div>
                 <div class="perfil-boxQuantidades">
                     <p class="perfil-quantidade paragrafo-metrica">5</p>
@@ -63,4 +63,141 @@
         </div>
     </div>
 
+
+    <div class="bloco2">
+        <div class="criarQuestao">
+
+            <form class="criarQuestao" id="formCriarQuestao">
+
+
+            <div class="criarQuestaoDiv">
+
+                <div class="criarQuestaoDiv">
+                    <h2 class="criarQuestao-Titulo titulo">Criar Questão </h2>
+                    <h3 class="criarQuestao-Titulo">Enunciado</h3>
+                    <div class="input-group">
+                        <textarea class="form-control" aria-label="With textarea" id="enunciado"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="criarQuestaoDiv">
+                    <h3 class="criarQuestao-Titulo">Justificativa</h3>
+                    <div class="input-group">
+
+                        <textarea class="form-control" aria-label="With textarea" id="justificativa"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="criarQuestao-Alternativas criarQuestaoDiv">
+                <div class="criarQuestao-AlternativasTitulo">
+                    <h3 class="criarQuestao-Titulo">Alternativas</h3>
+                    <button onclick="revelarJustificativas()">Adicionar Justificativas</button>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text">Alternativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="alternativa1"></textarea>
+                </div>
+                <div class="input-group criarQuestao-Justificativa d-none">
+                    <span class="input-group-text span-justificativa">Justificativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="justificativaAlternativa1"></textarea>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Alternativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="alternativa2"></textarea>
+                </div>
+                <div class="input-group criarQuestao-Justificativa d-none">
+                    <span class="input-group-text span-justificativa">Justificativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="justificativaAlternativa2"></textarea>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Alternativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="alternativa3"></textarea>
+                </div>
+                <div class="input-group criarQuestao-Justificativa d-none">
+                    <span class="input-group-text span-justificativa">Justificativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="justificativaAlternativa3"></textarea>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Alternativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="alternativa4"></textarea>
+                </div>
+                <div class="input-group criarQuestao-Justificativa d-none">
+                    <span class="input-group-text span-justificativa">Justificativa</span>
+                    <textarea class="form-control" aria-label="With textarea" id="justificativaAlternativa4"></textarea>
+                </div>
+            </div>
+
+            <div class="CriarQuestao-botaoSalvar">
+
+                <button type="submit" id="botaoSalvar" class="bloco1-Botao botaoSalvar" onclick="getFormData()">Salvar</button>
+            </div>
+
+            </form>
+
+
+        </div>
+        <div class="requisitosQuestao">
+            <div class="requisitosQuestao-divTitulo">
+                <h3 class="requisitosQuestao-titulo">Requisitos para criar a Questão</h3>
+                <p class="requisitosQuestao-paragrafo ">A Questão vai possuir:</p>
+                <ul class="requisitosQuestao-ul">
+                    <li class="requisitosQuestao-li">- 4 alternativas <span class="span-Destaque">obrigatório</span>
+                    </li>
+                    <li class="requisitosQuestao-li">- Explicação da resposta correta <span class="span-Destaque">
+                            obrigatório</span></li>
+                    <li class="requisitosQuestao-li">- Justificativa das Alternativas Erradas <span
+                            class="span-Destaque"> não obrigatório</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+
+
+
+function getFormData() {
+    // Seleciona o formulário
+    var form = document.getElementById('formCriarQuestao');
+
+    //remover o evento de recarregar a página
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
+     // selecionar os inputs
+    var enunciado = document.getElementById('enunciado').value;
+    var justificativa = document.getElementById('justificativa').value;
+    // criar um objeto com os dados
+    var formData = {
+        enunciado: enunciado,
+        justificativa: justificativa,
+    };
+
+
+    // Itera sobre os elementos do formulário
+    for (var i = 1; i <= 4; i++) {
+        formData['alternativa' + i] = document.getElementById('alternativa' + i).value;
+        formData['justificativaAlternativa' + i] = document.getElementById('justificativaAlternativa' + i).value;
+    }
+
+    // Imprime os dados do formulário no console
+    console.log(formData);
+
+    return formData;
+}
+
+function revelarJustificativas() {
+    //remover o evento de recarregar a página
+    event.preventDefault();
+    var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
+    justificativas.forEach(function(justificativa) {
+        justificativa.classList.toggle('d-none');
+    });
+}
+</script>
