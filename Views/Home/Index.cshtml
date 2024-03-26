@@ -65,28 +65,74 @@
 
     <div id="quadroPrincipal">
 
-         <div class="bloco3">
+        <div class="blocoResponderQuestao">
 
-        <div class="divQuestoes">
-            <div class="questoesTitulo">
-                <h2 class = "titulo">Todas as Perguntas</h2>
+            <div class="divResponderQuestao">
+                <div class="ResponderQuestaoTags">
+                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
+                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
+                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
+                </div>
+
+                <p class="enunciado">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero saepe, eum magnam
+                    corporis distinctio qui quas praesentium. Suscipit, sapiente. Ullam omnis laborum eos consequuntur!
+                    Atque, natus nostrum! Error, nisi blanditiis!</p>
+
+                <div class="boxResponderQuestaoAlternativas">
+
+                    <div class="boxAlternativa">
+                        <div class="form-check inputAlternativa form-check-inline">
+                            <input class="form-check-input inputAlternativaResponder" type="radio"
+                                name="inlineRadioOptions" id="idAlternativa" value="option1">
+                            <label class="form-check-label" for="idAlternativa">Lorem ipsum!</label>
+                        </div>
+                    </div>
+                    <div class="boxAlternativa">
+                        <div class="form-check inputAlternativa form-check-inline">
+                            <input class="form-check-input inputAlternativaResponder" type="radio"
+                                name="inlineRadioOptions" id="idAlternativa" value="option1">
+                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
+                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
+                                debitis facilis!</label>
+                        </div>
+                    </div>
+                    <div class="boxAlternativa">
+                        <div class="form-check inputAlternativa form-check-inline">
+                            <input class="form-check-input inputAlternativaResponder" type="radio"
+                                name="inlineRadioOptions" id="idAlternativa" value="option1">
+                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
+                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
+                                debitis facilis!</label>
+                        </div>
+                    </div>
+                    <div class="boxAlternativa">
+                        <div class="form-check inputAlternativa form-check-inline">
+                            <input class="form-check-input inputAlternativaResponder" type="radio"
+                                name="inlineRadioOptions" id="idAlternativa" value="option1">
+                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
+                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
+                                debitis facilis!</label>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="listaQuestoes">
+
+
+
+
+            <div class="infoQuestoes">
 
             </div>
-        
-          
         </div>
-    
-    
-        <div class="infoQuestoes">
 
-        </div>
+
     </div>
 
-    </div>
 
-   
 </div>
 
 <script>
@@ -148,7 +194,7 @@
             });
         }
 
-         //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
+        //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
         for (var i = 1; i <= 4; i++) {
             if (document.getElementById('inputRadio' + i).checked) {
                 questaoMontada.Respostas[i - 1].Correta = true;
@@ -173,11 +219,6 @@
     function criarQuestaoFetch() {
         var formData = getFormData();
 
-        console.log(formData);
-
-
-
-
         fetch('http://localhost:5084/api/plataforma/criarquestao', {
             method: 'POST',
             headers: {
@@ -194,17 +235,16 @@
             });
     }
 
-    function criarQuestaoGerarHTML()
-    {
+    function criarQuestaoGerarHTML() {
 
 
 
-    //selecionar o elemento de id 'quadroPrincipal'
+        //selecionar o elemento de id 'quadroPrincipal'
 
-    var mainElement = document.getElementById('quadroPrincipal');
+        var mainElement = document.getElementById('quadroPrincipal');
 
-    // Define o código HTML que você deseja inserir
-    var html = `
+        // Define o código HTML que você deseja inserir
+        var html = `
         <div class="bloco2">
         <div class="criarQuestao">
 
@@ -329,157 +369,258 @@
     </div> 
     `;
 
-    // Insere o código HTML como o último filho do elemento 'main'
-    mainElement.insertAdjacentHTML('beforeend', html);
+        // Insere o código HTML como o último filho do elemento 'main'
+        mainElement.insertAdjacentHTML('beforeend', html);
     }
 
 
-function verificarBloco2Existe() {
-    // Tenta selecionar o elemento
-    var element = document.querySelector('.bloco2');
+    function verificarBloco2Existe() {
+        // Tenta selecionar o elemento
+        var element = document.querySelector('.bloco2');
 
-    // Verifica se o elemento existe
-    if (element) {
-        console.log('O elemento existe!');
-    } else {
-        criarQuestaoGerarHTML();
+        // Verifica se o elemento existe
+        if (element) {
+            console.log('O elemento existe!');
+        } else {
+            criarQuestaoGerarHTML();
+        }
     }
-}
 
+   var perguntas = [
+            {
+                RequisicaoId: 'guid1',
+                Conteudo: 'Qual é a capital da França?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'Paris', PerguntaId: 'guid1', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'Londres', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Berlim', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Madrid', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Geografia' },
+                    { Texto: 'Capitais' }
+                ],
+                Explicacao: 'Paris é a capital da França.',
+                Erro: ""
+            },
+            {
+                RequisicaoId: 'guid2',
+                Conteudo: 'Quem escreveu "Dom Quixote"?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'Miguel de Cervantes', PerguntaId: 'guid2', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'William Shakespeare', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'J.K. Rowling', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Stephen King', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Literatura' },
+                    { Texto: 'Autores' }
+                ],
+                Explicacao: 'Dom Quixote foi escrito por Miguel de Cervantes.',
+                Erro: ""
+            },
+            {
+                RequisicaoId: 'guid3',
+                Conteudo: 'Qual é a fórmula da água?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'H2O', PerguntaId: 'guid3', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'CO2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'O2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'H2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Química' },
+                    { Texto: 'Fórmulas' }
+                ],
+                Explicacao: 'A fórmula da água é H2O.',
+                Erro: ""
+            }
+        ];
 
-function listarTodasPerguntas() {
+    function listarTodasPerguntas() {
 
-    var perguntas = [
-    {
-        Conteudo: 'Qual é a capital da França?',
-        Tags: [
-            { Texto: 'Geografia' },
-            { Texto: 'Capitais' }
-        ]
-    },
-    {
-        Conteudo: 'Quem escreveu "Dom Quixote"?',
-        Tags: [
-            { Texto: 'Literatura' },
-            { Texto: 'Autores' }
-        ]
-    },
-    {
-        Conteudo: 'Qual é a fórmula da água?',
-        Tags: [
-            { Texto: 'Química' },
-            { Texto: 'Fórmulas' }
-        ]
-    },
-     {
-        Conteudo: 'Qual é a fórmula da água?',
-        Tags: [
-            { Texto: 'Química' },
-            { Texto: 'Fórmulas' }
-        ]
-    },
-     {
-        Conteudo: 'Qual é a fórmula da água?',
-        Tags: [
-            { Texto: 'Química' },
-            { Texto: 'Fórmulas' }
-        ]
-    },
-     {
-        Conteudo: 'Qual é a fórmula da água?',
-        Tags: [
-            { Texto: 'Química' },
-            { Texto: 'Fórmulas' }
-        ]
-    }
-];
+        var perguntas = [
+            {
+                RequisicaoId: 'guid1',
+                Conteudo: 'Qual é a capital da França?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'Paris', PerguntaId: 'guid1', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'Londres', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Berlim', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Madrid', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Geografia' },
+                    { Texto: 'Capitais' }
+                ],
+                Explicacao: 'Paris é a capital da França.',
+                Erro: ""
+            },
+            {
+                RequisicaoId: 'guid2',
+                Conteudo: 'Quem escreveu "Dom Quixote"?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'Miguel de Cervantes', PerguntaId: 'guid2', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'William Shakespeare', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'J.K. Rowling', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'Stephen King', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Literatura' },
+                    { Texto: 'Autores' }
+                ],
+                Explicacao: 'Dom Quixote foi escrito por Miguel de Cervantes.',
+                Erro: ""
+            },
+            {
+                RequisicaoId: 'guid3',
+                Conteudo: 'Qual é a fórmula da água?',
+                Valided: false,
+                Respostas: [
+                    { Conteudo: 'H2O', PerguntaId: 'guid3', Correta: true, Valided: false, Erro: '' },
+                    { Conteudo: 'CO2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'O2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
+                    { Conteudo: 'H2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' }
+                ],
+                Tags: [
+                    { Texto: 'Química' },
+                    { Texto: 'Fórmulas' }
+                ],
+                Explicacao: 'A fórmula da água é H2O.',
+                Erro: ""
+            }
+        ];
 
-@* crie esses elementos e coloque no id quadroPrincipal
- <div class="divQuestoes">
+    @* crie esses elementos e coloque no id quadroPrincipal
+            <div class="divQuestoes">
             <div class="questoesTitulo">
-                <h2 class = "titulo">Todas as Perguntas</h2>
+            <h2 class = "titulo">Todas as Perguntas</h2>
             </div>
             <div class="listaQuestoes">
 
             </div>
-        
-          
-        </div> *@
+
+
+            </div> *@
 
         var htmlbase =
-        `
-        <div class="bloco3">
-        <div class="divQuestoes">
-            <div class="questoesTitulo">
-                <h2 class = "titulo">Todas as Perguntas</h2>
-            </div>
-            <div class="listaQuestoes">
+    `
+<div class="bloco3">
+<div class="divQuestoes">
+    <div class="questoesTitulo">
+        <h2 class = "titulo">Todas as Perguntas</h2>
+    </div>
+    <div class="listaQuestoes">
 
-            </div>
-        
-          
-        </div>
-        
-        <div class="infoQuestoes">
+    </div>
 
+
+</div>
+
+<div class="infoQuestoes">
+
+</div>
+</div>`
+
+var quadro = document.getElementById('quadroPrincipal');
+
+quadro.insertAdjacentHTML('beforeend', htmlbase);
+
+
+// Seleciona o elemento onde as perguntas serão inseridas
+var divQuestoes = document.querySelector('.listaQuestoes');
+
+// Itera sobre a lista de perguntas
+for (var i = 0; i < perguntas.length; i++) {
+    // Cria o HTML para a pergunta atual
+    var html = `
+    <div class="boxQuestao" onclick="executeCallbackAfterClearingElement(() => generateQuestionHTML(perguntas[${i}]))">
+        <p class="questaoEnunciado">${perguntas[i].Conteudo}</p>
+        <div class="boxTags">
+`;
+
+    // Adiciona as tags da pergunta ao HTML
+    for (var j = 0; j < perguntas[i].Tags.length; j++) {
+        html += `<span class="tag span-Destaque">${perguntas[i].Tags[j].Texto}</span>`;
+    }
+
+    html += `
         </div>
-        </div>`
+    </div>
+`;
+
+    // Insere o HTML da pergunta no elemento 'divQuestoes'
+    divQuestoes.insertAdjacentHTML('beforeend', html);
+        }
+    }
+
+
+    function executeCallbackAfterClearingElement(callback) {
+        // Seleciona o elemento com o id 'quadroPrincipal'
+        var quadroPrincipal = document.getElementById('quadroPrincipal');
+
+        console.log("executou")
+
+        // Verifica se o elemento tem filhos
+        if (quadroPrincipal.hasChildNodes()) {
+            // Se tiver, remove todos os filhos
+            while (quadroPrincipal.firstChild) {
+                quadroPrincipal.removeChild(quadroPrincipal.firstChild);
+            }
+        }
+
+        // Executa a função callback
+        callback();
+    }
+
+
+    function generateQuestionHTML(question) {
+
+       
 
         var quadro = document.getElementById('quadroPrincipal');
+        // Cria as tags
+        var tagsHTML = question.Tags.map(tag => `<span class="ResponderQuestaoTAG tag span-Destaque">${tag.Texto}</span>`).join('');
 
-        quadro.insertAdjacentHTML('beforeend', htmlbase);
-    
-
-    // Seleciona o elemento onde as perguntas serão inseridas
-    var divQuestoes = document.querySelector('.listaQuestoes');
-
-    // Itera sobre a lista de perguntas
-    for (var i = 0; i < perguntas.length; i++) {
-        // Cria o HTML para a pergunta atual
-        var html = `
-            <div class="boxQuestao">
-                <p class="questaoEnunciado">${perguntas[i].Conteudo}</p>
-                <div class="boxTags">
-        `;
-
-        // Adiciona as tags da pergunta ao HTML
-        for (var j = 0; j < perguntas[i].Tags.length; j++) {
-            html += `<span class="tag span-Destaque">${perguntas[i].Tags[j].Texto}</span>`;
-        }
-
-        html += `
-                </div>
+        // Cria as alternativas
+        var alternativasHTML = question.Respostas.map((resposta, index) => `
+        <div class="boxAlternativa">
+            <div class="form-check inputAlternativa form-check-inline">
+                <input class="form-check-input inputAlternativaResponder" type="radio" name="inlineRadioOptions" id="${resposta.PerguntaId}" value="option${index}">
+                <label class="form-check-label" for="${resposta.PerguntaId}">${resposta.Conteudo}</label>
             </div>
-        `;
+        </div>
+    `).join('');
 
-        // Insere o HTML da pergunta no elemento 'divQuestoes'
-        divQuestoes.insertAdjacentHTML('beforeend', html);
+        // Cria o HTML completo
+        
+
+       
+        var html = `
+        <div class = "bloco4">
+        <div class="divResponderQuestao">
+            <div class="ResponderQuestaoTags">
+                ${tagsHTML}
+            </div>
+            <p class="enunciado">${question.Conteudo}</p>
+            <div class="boxResponderQuestaoAlternativas">
+                ${alternativasHTML}
+            </div>
+        </div>
+
+          <div class="infoQuestoes">
+
+            </div>
+             </div>
+    `;
+
+        // Adiciona o HTML ao DOM
+        quadro.insertAdjacentHTML('beforeend', html);
     }
-}
-
-
-
-// Chama a função listarTodasPerguntas com a lista de perguntas
-executeCallbackAfterClearingElement(listarTodasPerguntas);
-
-function executeCallbackAfterClearingElement(callback) {
-    // Seleciona o elemento com o id 'quadroPrincipal'
-    var quadroPrincipal = document.getElementById('quadroPrincipal');
-
-    console.log("executou")
-
-    // Verifica se o elemento tem filhos
-    if (quadroPrincipal.hasChildNodes()) {
-        // Se tiver, remove todos os filhos
-        while (quadroPrincipal.firstChild) {
-            quadroPrincipal.removeChild(quadroPrincipal.firstChild);
-        }
-    }
-
-    // Executa a função callback
-    callback();
-}
 
 </script>
-
- 

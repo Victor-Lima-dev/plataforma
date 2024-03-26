@@ -485,3 +485,61 @@ body
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.blocoResponderQuestao
+{
+  display: flex;
+  gap: 1rem;
+}
+
+.divResponderQuestao
+{
+  flex: 2;
+  padding: var(--paddingPadrao);
+
+  background-color: var(--fundoItens);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 1rem;
+}
+
+.enunciado
+{
+  font-size: 16px;
+  font-weight: var(--pesoFontNormal);
+  color: var(--corFont);
+}
+
+.boxResponderQuestaoAlternativas
+{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  
+
+}
+
+.boxAlternativa
+{
+  padding: .5rem;
+  border-radius: 10px;
+  background-color: var(--fundoPrincipal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.boxAlternativa:hover
+{
+  background-color: var(--corBordaDestaque);
+}
+
+.bloco4
+{
+  display: flex;
+  gap: 1rem;
+}
