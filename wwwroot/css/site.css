@@ -414,3 +414,74 @@ body
   color: var(--corFont);
   border: none;
 }
+
+/* fim bloco2 */
+
+/* bloco3 */
+
+.bloco3
+{
+  display: flex;
+  gap: 1rem;
+}
+
+.divQuestoes
+{
+  flex: 2;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  padding: var(--paddingPadrao);
+
+  background-color: var(--fundoItens);
+}
+
+.infoQuestoes
+{
+  flex: 1;
+  padding: var(--paddingPadrao);
+}
+
+.boxQuestao
+{
+  height: 10rem;
+  width: 10rem;
+  padding: var(--paddingPadrao);
+
+  background-color: var(--fundoPrincipal);
+
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  justify-content: space-between;
+
+  border-radius: 10px;
+
+  transition: .1s;
+
+  cursor: pointer;
+}
+
+.boxQuestao:hover
+{
+  background-color: var(--corBordaDestaque);
+}
+
+.tag
+{
+  font-size: var(--fontSizePequeno);
+}
+
+.listaQuestoes
+{
+ 
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}

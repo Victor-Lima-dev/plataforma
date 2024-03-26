@@ -12,13 +12,13 @@
             </div>
 
             <div class="bloco1-divDestaques">
-                <div class="bloco1-BoxDestaque">
-                    <span class="span-Destaque">Review</span>
-                    <p class="paragrafo-Destaque">Listas para Responder</p>
+                <div class="bloco1-BoxDestaque" onclick="executeCallbackAfterClearingElement(verificarBloco2Existe)">
+                    <span class="span-Destaque">Create</span>
+                    <p class="paragrafo-Destaque">Criar Questão</p>
                 </div>
-                <div class="bloco1-BoxDestaque">
+                <div class="bloco1-BoxDestaque" onclick="executeCallbackAfterClearingElement(listarTodasPerguntas);">
                     <span class="span-Destaque">Review</span>
-                    <p class="paragrafo-Destaque">Anotações para Estudar</p>
+                    <p class="paragrafo-Destaque">Listar Todas as Questões</p>
                 </div>
                 <div class="bloco1-BoxDestaque">
                     <span class="span-Destaque">Review</span>
@@ -63,8 +63,149 @@
         </div>
     </div>
 
+    <div id="quadroPrincipal">
 
-    <div class="bloco2">
+         <div class="bloco3">
+
+        <div class="divQuestoes">
+            <div class="questoesTitulo">
+                <h2 class = "titulo">Todas as Perguntas</h2>
+            </div>
+            <div class="listaQuestoes">
+
+            </div>
+        
+          
+        </div>
+    
+    
+        <div class="infoQuestoes">
+
+        </div>
+    </div>
+
+    </div>
+
+   
+</div>
+
+<script>
+
+
+
+    function getFormData() {
+        // Seleciona o formulário
+        var form = document.getElementById('formCriarQuestao');
+
+        //remover o evento de recarregar a página
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+        });
+
+        // selecionar os inputs
+        var enunciado = document.getElementById('enunciado').value;
+        var justificativa = document.getElementById('justificativa').value;
+
+        // criar um objeto com os dados
+        var formData = {
+            enunciado: enunciado,
+            justificativa: justificativa,
+        };
+
+        // Itera sobre os elementos do formulário
+        for (var i = 1; i <= 4; i++) {
+            formData['alternativa' + i] = document.getElementById('alternativa' + i).value;
+            formData['justificativaAlternativa' + i] = document.getElementById('justificativaAlternativa' + i).value;
+        }
+
+        const guidId = "0e7745b3-fea7-40ed-8445-ad622e95904f";
+
+        var questaoMontada = {
+            RequisicaoId: guidId,
+            Conteudo: enunciado,
+            Valided: false,
+            Respostas: [],
+            Tags: [
+                {
+                    Texto: enunciado,
+                    Perguntas: []
+                }
+            ],
+            Explicacao: justificativa,
+            Erro: ""
+        }
+
+
+
+        //adicionar as respostas usando o for
+        for (var i = 1; i <= 4; i++) {
+            questaoMontada.Respostas.push({
+                Conteudo: formData['alternativa' + i],
+                PerguntaId: guidId,
+                Correta: false,
+                Valided: false,
+                Erro: formData['justificativaAlternativa' + i]
+            });
+        }
+
+         //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
+        for (var i = 1; i <= 4; i++) {
+            if (document.getElementById('inputRadio' + i).checked) {
+                questaoMontada.Respostas[i - 1].Correta = true;
+            }
+        }
+
+
+        return questaoMontada;
+    }
+
+    function revelarJustificativas() {
+        //remover o evento de recarregar a página
+        event.preventDefault();
+        var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
+        justificativas.forEach(function (justificativa) {
+            justificativa.classList.toggle('d-none');
+        });
+    }
+
+
+
+    function criarQuestaoFetch() {
+        var formData = getFormData();
+
+        console.log(formData);
+
+
+
+
+        fetch('http://localhost:5084/api/plataforma/criarquestao', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function criarQuestaoGerarHTML()
+    {
+
+
+
+    //selecionar o elemento de id 'quadroPrincipal'
+
+    var mainElement = document.getElementById('quadroPrincipal');
+
+    // Define o código HTML que você deseja inserir
+    var html = `
+        <div class="bloco2">
         <div class="criarQuestao">
 
             <form class="criarQuestao" id="formCriarQuestao">
@@ -185,111 +326,160 @@
                 </ul>
             </div>
         </div>
-    </div>
-</div>
+    </div> 
+    `;
 
-<script>
-
-
-
-    function getFormData() {
-        // Seleciona o formulário
-        var form = document.getElementById('formCriarQuestao');
-
-        //remover o evento de recarregar a página
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-        });
-
-        // selecionar os inputs
-        var enunciado = document.getElementById('enunciado').value;
-        var justificativa = document.getElementById('justificativa').value;
-
-        // criar um objeto com os dados
-        var formData = {
-            enunciado: enunciado,
-            justificativa: justificativa,
-        };
-
-        // Itera sobre os elementos do formulário
-        for (var i = 1; i <= 4; i++) {
-            formData['alternativa' + i] = document.getElementById('alternativa' + i).value;
-            formData['justificativaAlternativa' + i] = document.getElementById('justificativaAlternativa' + i).value;
-        }
-
-        const guidId = "0e7745b3-fea7-40ed-8445-ad622e95904f";
-
-        var questaoMontada = {
-            RequisicaoId: guidId,
-            Conteudo: enunciado,
-            Valided: false,
-            Respostas: [],
-            Tags: [
-                {
-                    Texto: enunciado,
-                    Perguntas: []
-                }
-            ],
-            Explicacao: justificativa,
-            Erro: ""
-        }
-
-       
-
-        //adicionar as respostas usando o for
-        for (var i = 1; i <= 4; i++) {
-            questaoMontada.Respostas.push({
-                Conteudo: formData['alternativa' + i],
-                PerguntaId: guidId,
-                Correta: false,
-                Valided: false,
-                Erro: formData['justificativaAlternativa' + i]
-            });
-        }
-
-         //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
-        for (var i = 1; i <= 4; i++) {
-            if (document.getElementById('inputRadio' + i).checked) {
-                questaoMontada.Respostas[i - 1].Correta = true;
-            }
-        }
-
-
-        return questaoMontada;
-    }
-
-    function revelarJustificativas() {
-        //remover o evento de recarregar a página
-        event.preventDefault();
-        var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
-        justificativas.forEach(function (justificativa) {
-            justificativa.classList.toggle('d-none');
-        });
+    // Insere o código HTML como o último filho do elemento 'main'
+    mainElement.insertAdjacentHTML('beforeend', html);
     }
 
 
+function verificarBloco2Existe() {
+    // Tenta selecionar o elemento
+    var element = document.querySelector('.bloco2');
 
-    function criarQuestaoFetch() {
-        var formData = getFormData();
-
-        console.log(formData);
-
-
-
-
-        fetch('http://localhost:5084/api/plataforma/criarquestao', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+    // Verifica se o elemento existe
+    if (element) {
+        console.log('O elemento existe!');
+    } else {
+        criarQuestaoGerarHTML();
     }
+}
+
+
+function listarTodasPerguntas() {
+
+    var perguntas = [
+    {
+        Conteudo: 'Qual é a capital da França?',
+        Tags: [
+            { Texto: 'Geografia' },
+            { Texto: 'Capitais' }
+        ]
+    },
+    {
+        Conteudo: 'Quem escreveu "Dom Quixote"?',
+        Tags: [
+            { Texto: 'Literatura' },
+            { Texto: 'Autores' }
+        ]
+    },
+    {
+        Conteudo: 'Qual é a fórmula da água?',
+        Tags: [
+            { Texto: 'Química' },
+            { Texto: 'Fórmulas' }
+        ]
+    },
+     {
+        Conteudo: 'Qual é a fórmula da água?',
+        Tags: [
+            { Texto: 'Química' },
+            { Texto: 'Fórmulas' }
+        ]
+    },
+     {
+        Conteudo: 'Qual é a fórmula da água?',
+        Tags: [
+            { Texto: 'Química' },
+            { Texto: 'Fórmulas' }
+        ]
+    },
+     {
+        Conteudo: 'Qual é a fórmula da água?',
+        Tags: [
+            { Texto: 'Química' },
+            { Texto: 'Fórmulas' }
+        ]
+    }
+];
+
+@* crie esses elementos e coloque no id quadroPrincipal
+ <div class="divQuestoes">
+            <div class="questoesTitulo">
+                <h2 class = "titulo">Todas as Perguntas</h2>
+            </div>
+            <div class="listaQuestoes">
+
+            </div>
+        
+          
+        </div> *@
+
+        var htmlbase =
+        `
+        <div class="bloco3">
+        <div class="divQuestoes">
+            <div class="questoesTitulo">
+                <h2 class = "titulo">Todas as Perguntas</h2>
+            </div>
+            <div class="listaQuestoes">
+
+            </div>
+        
+          
+        </div>
+        
+        <div class="infoQuestoes">
+
+        </div>
+        </div>`
+
+        var quadro = document.getElementById('quadroPrincipal');
+
+        quadro.insertAdjacentHTML('beforeend', htmlbase);
+    
+
+    // Seleciona o elemento onde as perguntas serão inseridas
+    var divQuestoes = document.querySelector('.listaQuestoes');
+
+    // Itera sobre a lista de perguntas
+    for (var i = 0; i < perguntas.length; i++) {
+        // Cria o HTML para a pergunta atual
+        var html = `
+            <div class="boxQuestao">
+                <p class="questaoEnunciado">${perguntas[i].Conteudo}</p>
+                <div class="boxTags">
+        `;
+
+        // Adiciona as tags da pergunta ao HTML
+        for (var j = 0; j < perguntas[i].Tags.length; j++) {
+            html += `<span class="tag span-Destaque">${perguntas[i].Tags[j].Texto}</span>`;
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        // Insere o HTML da pergunta no elemento 'divQuestoes'
+        divQuestoes.insertAdjacentHTML('beforeend', html);
+    }
+}
+
+
+
+// Chama a função listarTodasPerguntas com a lista de perguntas
+executeCallbackAfterClearingElement(listarTodasPerguntas);
+
+function executeCallbackAfterClearingElement(callback) {
+    // Seleciona o elemento com o id 'quadroPrincipal'
+    var quadroPrincipal = document.getElementById('quadroPrincipal');
+
+    console.log("executou")
+
+    // Verifica se o elemento tem filhos
+    if (quadroPrincipal.hasChildNodes()) {
+        // Se tiver, remove todos os filhos
+        while (quadroPrincipal.firstChild) {
+            quadroPrincipal.removeChild(quadroPrincipal.firstChild);
+        }
+    }
+
+    // Executa a função callback
+    callback();
+}
+
 </script>
+
+ 
