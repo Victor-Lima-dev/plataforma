@@ -543,3 +543,26 @@ body
   display: flex;
   gap: 1rem;
 }
+
+.labelInput
+{
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.respostaCorreta
+{
+  background-color: #00D649;
+}
+
+.respostaErrada
+{
+  background-color: #FF0000;
+}
+
+.boxAlternativaJustificativa
+{
+  padding: .5rem;
+  background-color: var(--fundoPrincipal);
+}

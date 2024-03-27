@@ -65,69 +65,6 @@
 
     <div id="quadroPrincipal">
 
-        <div class="blocoResponderQuestao">
-
-            <div class="divResponderQuestao">
-                <div class="ResponderQuestaoTags">
-                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
-                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
-                    <span class="ResponderQuestaoTAG tag span-Destaque">TAG</span>
-                </div>
-
-                <p class="enunciado">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero saepe, eum magnam
-                    corporis distinctio qui quas praesentium. Suscipit, sapiente. Ullam omnis laborum eos consequuntur!
-                    Atque, natus nostrum! Error, nisi blanditiis!</p>
-
-                <div class="boxResponderQuestaoAlternativas">
-
-                    <div class="boxAlternativa">
-                        <div class="form-check inputAlternativa form-check-inline">
-                            <input class="form-check-input inputAlternativaResponder" type="radio"
-                                name="inlineRadioOptions" id="idAlternativa" value="option1">
-                            <label class="form-check-label" for="idAlternativa">Lorem ipsum!</label>
-                        </div>
-                    </div>
-                    <div class="boxAlternativa">
-                        <div class="form-check inputAlternativa form-check-inline">
-                            <input class="form-check-input inputAlternativaResponder" type="radio"
-                                name="inlineRadioOptions" id="idAlternativa" value="option1">
-                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
-                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
-                                debitis facilis!</label>
-                        </div>
-                    </div>
-                    <div class="boxAlternativa">
-                        <div class="form-check inputAlternativa form-check-inline">
-                            <input class="form-check-input inputAlternativaResponder" type="radio"
-                                name="inlineRadioOptions" id="idAlternativa" value="option1">
-                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
-                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
-                                debitis facilis!</label>
-                        </div>
-                    </div>
-                    <div class="boxAlternativa">
-                        <div class="form-check inputAlternativa form-check-inline">
-                            <input class="form-check-input inputAlternativaResponder" type="radio"
-                                name="inlineRadioOptions" id="idAlternativa" value="option1">
-                            <label class="form-check-label" for="idAlternativa">Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Hic nihil omnis quis cum necessitatibus quidem impedit voluptatum eum
-                                voluptas, blanditiis dolorem minima repudiandae minus dignissimos voluptate qui amet
-                                debitis facilis!</label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-            <div class="infoQuestoes">
-
-            </div>
-        </div>
 
 
     </div>
@@ -386,130 +323,69 @@
         }
     }
 
-   var perguntas = [
-            {
-                RequisicaoId: 'guid1',
-                Conteudo: 'Qual é a capital da França?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'Paris', PerguntaId: 'guid1', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'Londres', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Berlim', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Madrid', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Geografia' },
-                    { Texto: 'Capitais' }
-                ],
-                Explicacao: 'Paris é a capital da França.',
-                Erro: ""
-            },
-            {
-                RequisicaoId: 'guid2',
-                Conteudo: 'Quem escreveu "Dom Quixote"?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'Miguel de Cervantes', PerguntaId: 'guid2', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'William Shakespeare', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'J.K. Rowling', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Stephen King', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Literatura' },
-                    { Texto: 'Autores' }
-                ],
-                Explicacao: 'Dom Quixote foi escrito por Miguel de Cervantes.',
-                Erro: ""
-            },
-            {
-                RequisicaoId: 'guid3',
-                Conteudo: 'Qual é a fórmula da água?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'H2O', PerguntaId: 'guid3', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'CO2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'O2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'H2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Química' },
-                    { Texto: 'Fórmulas' }
-                ],
-                Explicacao: 'A fórmula da água é H2O.',
-                Erro: ""
-            }
-        ];
+    var perguntas = [
+        {
+            Id: "123456",
+            RequisicaoId: 'guid1',
+            Conteudo: 'Qual é a capital da França?',
+            Valided: false,
+            Respostas: [
+                { Id: "123", Conteudo: 'Paris', PerguntaId: '123456', Correta: true, Valided: false, Erro: '' },
+                { Id: "134", Conteudo: 'Londres', PerguntaId: '123456', Correta: false, Valided: false, Erro: '' },
+                { Id: "234", Conteudo: 'Berlim', PerguntaId: '123456', Correta: false, Valided: false, Erro: '' },
+                { Id: "12234", Conteudo: 'Madrid', PerguntaId: '123456', Correta: false, Valided: false, Erro: '' }
+            ],
+            Tags: [
+                { Texto: 'Geografia' },
+                { Texto: 'Capitais' }
+            ],
+            Explicacao: 'Paris é a capital da França.',
+            Erro: ""
+        },
+        {
+            Id: "1234563",
+            RequisicaoId: 'guid2',
+            Conteudo: 'Quem escreveu "Dom Quixote"?',
+            Valided: false,
+            Respostas: [
+                { Id: "12232334", Conteudo: 'Miguel de Cervantes', PerguntaId: '1234563', Correta: true, Valided: false, Erro: '' },
+                { Id: "1234323232", Conteudo: 'William Shakespeare', PerguntaId: '1234563', Correta: false, Valided: false, Erro: '' },
+                { Id: "1232323234", Conteudo: 'J.K. Rowling', PerguntaId: '1234563', Correta: false, Valided: false, Erro: '' },
+                { Id: "1233232324", Conteudo: 'Stephen King', PerguntaId: '1234563', Correta: false, Valided: false, Erro: '' }
+            ],
+            Tags: [
+                { Texto: 'Literatura' },
+                { Texto: 'Autores' }
+            ],
+            Explicacao: 'Dom Quixote foi escrito por Miguel de Cervantes.',
+            Erro: ""
+        },
+        {
+            Id: "12345621",
+            RequisicaoId: 'guid3',
+            Conteudo: 'Qual é a fórmula da água?',
+            Valided: false,
+            Respostas: [
+                { Id: "123323232324", Conteudo: 'H2O', PerguntaId: '12345621', Correta: true, Valided: false, Erro: '' },
+                { Id: "12312331234", Conteudo: 'CO2', PerguntaId: '12345621', Correta: false, Valided: false, Erro: '' },
+                { Id: "123213213124", Conteudo: 'O2', PerguntaId: '12345621', Correta: false, Valided: false, Erro: '' },
+                { Id: "12332131231234", Conteudo: 'H2', PerguntaId: '12345621', Correta: false, Valided: false, Erro: '' }
+            ],
+            Tags: [
+                { Texto: 'Química' },
+                { Texto: 'Fórmulas' }
+            ],
+            Explicacao: 'A fórmula da água é H2O.',
+            Erro: ""
+        }
+    ];
 
     function listarTodasPerguntas() {
 
-        var perguntas = [
-            {
-                RequisicaoId: 'guid1',
-                Conteudo: 'Qual é a capital da França?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'Paris', PerguntaId: 'guid1', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'Londres', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Berlim', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Madrid', PerguntaId: 'guid1', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Geografia' },
-                    { Texto: 'Capitais' }
-                ],
-                Explicacao: 'Paris é a capital da França.',
-                Erro: ""
-            },
-            {
-                RequisicaoId: 'guid2',
-                Conteudo: 'Quem escreveu "Dom Quixote"?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'Miguel de Cervantes', PerguntaId: 'guid2', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'William Shakespeare', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'J.K. Rowling', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'Stephen King', PerguntaId: 'guid2', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Literatura' },
-                    { Texto: 'Autores' }
-                ],
-                Explicacao: 'Dom Quixote foi escrito por Miguel de Cervantes.',
-                Erro: ""
-            },
-            {
-                RequisicaoId: 'guid3',
-                Conteudo: 'Qual é a fórmula da água?',
-                Valided: false,
-                Respostas: [
-                    { Conteudo: 'H2O', PerguntaId: 'guid3', Correta: true, Valided: false, Erro: '' },
-                    { Conteudo: 'CO2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'O2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' },
-                    { Conteudo: 'H2', PerguntaId: 'guid3', Correta: false, Valided: false, Erro: '' }
-                ],
-                Tags: [
-                    { Texto: 'Química' },
-                    { Texto: 'Fórmulas' }
-                ],
-                Explicacao: 'A fórmula da água é H2O.',
-                Erro: ""
-            }
-        ];
-
-    @* crie esses elementos e coloque no id quadroPrincipal
-            <div class="divQuestoes">
-            <div class="questoesTitulo">
-            <h2 class = "titulo">Todas as Perguntas</h2>
-            </div>
-            <div class="listaQuestoes">
-
-            </div>
-
-
-            </div> *@
+        
 
         var htmlbase =
-    `
+            `
 <div class="bloco3">
 <div class="divQuestoes">
     <div class="questoesTitulo">
@@ -527,44 +403,45 @@
 </div>
 </div>`
 
-var quadro = document.getElementById('quadroPrincipal');
+        var quadro = document.getElementById('quadroPrincipal');
 
-quadro.insertAdjacentHTML('beforeend', htmlbase);
+        quadro.insertAdjacentHTML('beforeend', htmlbase);
 
 
-// Seleciona o elemento onde as perguntas serão inseridas
-var divQuestoes = document.querySelector('.listaQuestoes');
+        // Seleciona o elemento onde as perguntas serão inseridas
+        var divQuestoes = document.querySelector('.listaQuestoes');
 
-// Itera sobre a lista de perguntas
-for (var i = 0; i < perguntas.length; i++) {
-    // Cria o HTML para a pergunta atual
-    var html = `
-    <div class="boxQuestao" onclick="executeCallbackAfterClearingElement(() => generateQuestionHTML(perguntas[${i}]))">
-        <p class="questaoEnunciado">${perguntas[i].Conteudo}</p>
-        <div class="boxTags">
-`;
+        var contagemQuestoes = questoes.length;
 
-    // Adiciona as tags da pergunta ao HTML
-    for (var j = 0; j < perguntas[i].Tags.length; j++) {
-        html += `<span class="tag span-Destaque">${perguntas[i].Tags[j].Texto}</span>`;
-    }
+        // Itera sobre a lista de perguntas
+        for (var i = 0; i < questoes.length; i++) {
+            var questaoEnviada = questoes[i]
+            // Cria o HTML para a pergunta atual
+            var html = `
+                <div class="boxQuestao" onclick="executeCallbackAfterClearingElement(() => generateQuestionHTML(questoes[${i}]))">
+                    <p class="questaoEnunciado">${questoes[i].conteudo}</p>
+                    <div class="boxTags">`;
 
-    html += `
-        </div>
-    </div>
-`;
+            // Adiciona as tags da pergunta ao HTML
+            for (var j = 0; j < questoes[i].taGs.length; j++) {
+                html += `<span class="tag span-Destaque">${questoes[i].taGs[j].texto}</span>`;
+            }
 
-    // Insere o HTML da pergunta no elemento 'divQuestoes'
-    divQuestoes.insertAdjacentHTML('beforeend', html);
+            html += `
+                    </div>
+                </div>`;
+
+            // Insere o HTML da pergunta no elemento 'divQuestoes'
+            divQuestoes.insertAdjacentHTML('beforeend', html);
         }
     }
+
+
 
 
     function executeCallbackAfterClearingElement(callback) {
         // Seleciona o elemento com o id 'quadroPrincipal'
         var quadroPrincipal = document.getElementById('quadroPrincipal');
-
-        console.log("executou")
 
         // Verifica se o elemento tem filhos
         if (quadroPrincipal.hasChildNodes()) {
@@ -580,34 +457,42 @@ for (var i = 0; i < perguntas.length; i++) {
 
 
     function generateQuestionHTML(question) {
-
-       
-
         var quadro = document.getElementById('quadroPrincipal');
         // Cria as tags
-        var tagsHTML = question.Tags.map(tag => `<span class="ResponderQuestaoTAG tag span-Destaque">${tag.Texto}</span>`).join('');
+        var tagsHTML = question.taGs.map(tag => `<span class="ResponderQuestaoTAG tag span-Destaque">${tag.texto}</span>`).join('');
+
+        //transformar os ids em string
+        var perguntaId = question.id.toString();
+
+        for (var i = 0; i < question.respostas.length; i++) {
+            question.respostas[i].id = question.respostas[i].id.toString();
+        }
 
         // Cria as alternativas
-        var alternativasHTML = question.Respostas.map((resposta, index) => `
-        <div class="boxAlternativa">
+        var alternativasHTML = question.respostas.map((resposta, index) => 
+        `
+        <div class="boxAlternativa" id="${resposta.id}" onclick="document.getElementById('${resposta.id}').click(); selecionarAlternativa('${resposta.perguntaId}', '${resposta.id}');">
             <div class="form-check inputAlternativa form-check-inline">
-                <input class="form-check-input inputAlternativaResponder" type="radio" name="inlineRadioOptions" id="${resposta.PerguntaId}" value="option${index}">
-                <label class="form-check-label" for="${resposta.PerguntaId}">${resposta.Conteudo}</label>
+                <input class="form-check-input inputAlternativaResponder" type="radio" name="inlineRadioOptions" id="input${resposta.id}" value="option${index}">
+                <label class="form-check-label labelInput" for="input${resposta.id}">${resposta.conteudo}</label>
             </div>
+        </div>
+
+        
+        <div class="boxAlternativaJustificativa d-none" id="${resposta.id}Alternativa" >
+            <p class="alternativaJustificativa">${resposta.Erro}
+                </p>
         </div>
     `).join('');
 
         // Cria o HTML completo
-        
-
-       
         var html = `
         <div class = "bloco4">
         <div class="divResponderQuestao">
             <div class="ResponderQuestaoTags">
                 ${tagsHTML}
             </div>
-            <p class="enunciado">${question.Conteudo}</p>
+            <p class="enunciado">${question.conteudo}</p>
             <div class="boxResponderQuestaoAlternativas">
                 ${alternativasHTML}
             </div>
@@ -622,5 +507,81 @@ for (var i = 0; i < perguntas.length; i++) {
         // Adiciona o HTML ao DOM
         quadro.insertAdjacentHTML('beforeend', html);
     }
+
+
+    function selecionarAlternativa(perguntaId, respostaId) {
+        var inputs = document.querySelectorAll('.inputAlternativaResponder');
+
+        var alternativaSelecionada = null;
+
+        inputs.forEach(function (input) {
+            if (input.checked) {
+
+
+                responderQuestao(respostaId, perguntaId)
+            }
+        });
+    }
+
+    function responderQuestao(alternativaId, perguntaId) {
+
+        var perguntaId = perguntaId.toString();
+        var alternativaId = alternativaId.toString();
+
+        var pergunta = questoes.find(pergunta => pergunta.id === perguntaId);
+
+        var alternativa = pergunta.respostas.find(resposta => resposta.id === alternativaId);
+
+        if (alternativa.correta) {
+            animacaoResposta(true, alternativaId);
+        }
+        else {
+            animacaoResposta(false, alternativaId);
+        }
+    }
+
+    function animacaoResposta(bool, inputId) {
+        var input = document.getElementById(inputId);
+        var alternativaJustificativa = document.getElementById(inputId + 'Alternativa');
+       
+        if (bool) {
+            input.classList.add('respostaCorreta');
+            //remover a classe d-none
+            alternativaJustificativa.classList.remove('d-none');
+        }
+        else {
+            input.classList.add('respostaErrada');
+            alternativaJustificativa.classList.remove('d-none');
+        }
+    }
+
+    function getTodasPerguntas()
+    {
+        fetch('http://localhost:5084/api/plataforma/ListarQuestoes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                var perguntas = Object.values(data);
+                console.log(perguntas);
+
+                questoes = perguntas; 
+
+            })
+            .catch((error) => {
+
+                console.error('Error:', error);
+
+            });
+    }
+
+
+    var questoes = []
+
+    getTodasPerguntas();
 
 </script>
