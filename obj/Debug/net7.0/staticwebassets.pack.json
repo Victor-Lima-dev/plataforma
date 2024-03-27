@@ -13,6 +13,26 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\criar.js",
+      "PackagePath": "staticwebassets\\js\\Questoes\\criar.js"
+    },
+    {
+      "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\fetch.js",
+      "PackagePath": "staticwebassets\\js\\Questoes\\fetch.js"
+    },
+    {
+      "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\listar.js",
+      "PackagePath": "staticwebassets\\js\\Questoes\\listar.js"
+    },
+    {
+      "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\responder.js",
+      "PackagePath": "staticwebassets\\js\\Questoes\\responder.js"
+    },
+    {
+      "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\verificarHTML.js",
+      "PackagePath": "staticwebassets\\js\\Questoes\\verificarHTML.js"
+    },
+    {
       "Id": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
