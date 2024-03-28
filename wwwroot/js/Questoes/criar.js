@@ -25,6 +25,11 @@ function getFormData() {
 
     // Verifica se todos os campos foram preenchidos
     for (var key in formData) {
+        // Pula a verificação para justificativas
+        if (key.startsWith('justificativa')) {
+            continue;
+        }
+
         if (formData[key] === '') {
             alert('Por favor, preencha todos os campos antes de enviar.');
             return;
@@ -67,12 +72,14 @@ function getFormData() {
 
     return questaoMontada;
 }
-    function criarQuestaoGerarHTML() {
-        //selecionar o elemento de id 'quadroPrincipal'
-        var mainElement = document.getElementById('quadroPrincipal');
-    
-        // Define o código HTML que você deseja inserir
-        var html = `
+
+
+function criarQuestaoGerarHTML() {
+    //selecionar o elemento de id 'quadroPrincipal'
+    var mainElement = document.getElementById('quadroPrincipal');
+
+    // Define o código HTML que você deseja inserir
+    var html = `
         <div class="bloco2">
         <div class="criarQuestao">
     
@@ -120,7 +127,7 @@ function getFormData() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa1" required></textarea>
+                            id="justificativaAlternativa1"></textarea>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
@@ -135,7 +142,7 @@ function getFormData() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa2" required></textarea>
+                            id="justificativaAlternativa2"></textarea>
     
                     </div>
                     <div class="input-group">
@@ -151,7 +158,7 @@ function getFormData() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa3" required></textarea>
+                            id="justificativaAlternativa3"></textarea>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
@@ -166,7 +173,7 @@ function getFormData() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa4" required></textarea>
+                            id="justificativaAlternativa4"></textarea>
                     </div>
                 </div>
     
@@ -196,17 +203,17 @@ function getFormData() {
         </div>
     </div> 
     `;
-    
-        // Insere o código HTML como o último filho do elemento 'main'
-        mainElement.insertAdjacentHTML('beforeend', html);
-    }
 
-    function revelarJustificativas() {
-        //remover o evento de recarregar a página
-        event.preventDefault();
-        var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
-        justificativas.forEach(function (justificativa) {
-            justificativa.classList.toggle('d-none');
-        });
-    }
+    // Insere o código HTML como o último filho do elemento 'main'
+    mainElement.insertAdjacentHTML('beforeend', html);
+}
+
+function revelarJustificativas() {
+    //remover o evento de recarregar a página
+    event.preventDefault();
+    var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
+    justificativas.forEach(function (justificativa) {
+        justificativa.classList.toggle('d-none');
+    });
+}
 
