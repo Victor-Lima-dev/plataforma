@@ -11,25 +11,29 @@ function generateQuestionHTML(question) {
     }
 
     // Cria as alternativas
-    var alternativasHTML = question.respostas.map((resposta, index) => 
-    `
+    var alternativasHTML = question.respostas.map((resposta, index) =>
+        `
+
     <div class="boxAlternativa" id="${resposta.id}" onclick="document.getElementById('${resposta.id}').click(); selecionarAlternativa('${resposta.perguntaId}', '${resposta.id}');">
         <div class="form-check inputAlternativa form-check-inline">
             <input class="form-check-input inputAlternativaResponder" type="radio" name="inlineRadioOptions" id="input${resposta.id}" value="option${index}">
             <label class="form-check-label labelInput" for="input${resposta.id}">${resposta.conteudo}</label>
         </div>
-    </div>
+        <!-- Botão para mostrar as alternativas -->
+        </div>
 
-    
-    <div class="boxAlternativaJustificativa d-none" id="${resposta.id}Alternativa" >
+        
+        
+        
+        <div class="boxAlternativaJustificativa d-none" id="${resposta.id}Alternativa" >
         <p class="alternativaJustificativa">${resposta.erro}
-            </p>
-    </div>
+        </p>
+        </div>
+        <button class="ajuda d-none botaoJustificativa" onclick="verJustificativa('${resposta.id}')" class="btn btn-primary">Mostrar informações sobre essa alternativa</button>
 `).join('');
 
-    // Cria o HTML completo
     var html = `
-    <div class = "bloco4">
+<div class = "bloco4">
     <div class="divResponderQuestao">
         <div class="ResponderQuestaoTags">
             ${tagsHTML}
@@ -38,16 +42,57 @@ function generateQuestionHTML(question) {
         <div class="boxResponderQuestaoAlternativas">
             ${alternativasHTML}
         </div>
+     
     </div>
 
-      <div class="infoQuestoes">
+    <div class="infoQuestoes">
+    <button  onclick="mostrarAjuda()" class="btn btn-primary">Ativar Ajuda</button>
+    <button  onclick="mostrarExplicacao()" class="btn btn-primary">Ver a Explicação da Pergunta</button>
 
-        </div>
-         </div>
+    <div id = "explicacao" class="d-none">
+        <p>${question.explicacao}</p>
+    </div>
+
+    </div>
+</div>
 `;
 
     // Adiciona o HTML ao DOM
     quadro.insertAdjacentHTML('beforeend', html);
+}
+
+
+function verJustificativa(respostaI) {
+    var alternativaJustificativa = document.getElementById(respostaI + 'Alternativa');
+
+    //verificar se a div está visível
+    if (alternativaJustificativa.classList.contains('d-none')) {
+        //remover a classe d-none
+        alternativaJustificativa.classList.remove('d-none');
+        return;
+    }
+    //adicionar a classe d-none
+    alternativaJustificativa.classList.add('d-none');
+}
+
+function mostrarAjuda() {
+    var ajuda = document.querySelectorAll('.ajuda');
+
+    //remover a classe d-none
+    ajuda.forEach(function (element) {
+        element.classList.remove('d-none');
+    });
+
+    ajuda.classList.add('d-none');
+
+}
+
+//função para revelar o pergunta.explicacao na div infoQuestoes
+
+function mostrarExplicacao() {
+    var explicacao = document.getElementById('explicacao');
+    //remover a classe d-none
+    explicacao.classList.remove('d-none');
 }
 
 
@@ -85,7 +130,7 @@ function responderQuestao(alternativaId, perguntaId) {
 function animacaoResposta(bool, inputId) {
     var input = document.getElementById(inputId);
     var alternativaJustificativa = document.getElementById(inputId + 'Alternativa');
-   
+
     if (bool) {
         input.classList.add('respostaCorreta');
         //remover a classe d-none
