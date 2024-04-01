@@ -1,24 +1,21 @@
-function getTodasPerguntas()
-{
-    fetch('http://localhost:5084/api/plataforma/ListarQuestoes', {
+function getTodasPerguntas() {
+    return fetch('http://localhost:5084/api/plataforma/ListarQuestoes', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     })
-        .then((response) => response.json())
-        .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
+        var perguntas = Object.values(data);
+        questoes = perguntas; 
 
-            var perguntas = Object.values(data);
-
-            questoes = perguntas; 
-
-        })
-        .catch((error) => {
-
-            console.error('Error:', error);
-
-        });
+        
+        preencherTelaInicial(questoes);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 function criarQuestaoFetch() {

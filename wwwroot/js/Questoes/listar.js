@@ -1,33 +1,11 @@
-function listarTodasPerguntas() {
-
-    var htmlbase =
-        `
-<div class="bloco3">
-<div class="divQuestoes">
-<div class="questoesTitulo">
-    <h2 class = "titulo">Todas as Perguntas</h2>
-</div>
-<div class="listaQuestoes">
-
-</div>
-
-
-</div>
-
-<div class="infoQuestoes">
-
-</div>
-</div>`
-
-    var quadro = document.getElementById('quadroPrincipal');
-
-    quadro.insertAdjacentHTML('beforeend', htmlbase);
-
-
+function gerarCardsQuestoes(questoes) {
     // Seleciona o elemento onde as perguntas serão inseridas
     var divQuestoes = document.querySelector('.listaQuestoes');
 
-    var contagemQuestoes = questoes.length;
+    // Remove todos os nós filhos do elemento 'divQuestoes'
+    while (divQuestoes.firstChild) {
+        divQuestoes.removeChild(divQuestoes.firstChild);
+    }
 
     // Itera sobre a lista de perguntas
     for (var i = 0; i < questoes.length; i++) {
@@ -50,4 +28,48 @@ function listarTodasPerguntas() {
         // Insere o HTML da pergunta no elemento 'divQuestoes'
         divQuestoes.insertAdjacentHTML('beforeend', html);
     }
+}
+
+async function listarTodasPerguntas() {
+
+    await getTodasPerguntas();
+
+    var htmlbase =
+        `
+<div class="bloco3">
+<div class="divQuestoes">
+<div class="questoesTitulo">
+    <h2 class = "titulo">Todas as Perguntas</h2>
+    <input id = "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
+     
+
+</div>
+<div class="listaQuestoes">
+
+</div>
+
+
+</div>
+
+<div class="infoQuestoes">
+
+</div>
+</div>`
+
+    var quadro = document.getElementById('quadroPrincipal');
+
+    quadro.insertAdjacentHTML('beforeend', htmlbase);
+
+    gerarCardsQuestoes(questoes);
+}
+
+
+function preencherTelaInicial(perguntas)
+{
+    var elementoTotalQuestoes = document.getElementById("totalExercicios");
+
+    var contagemTotalQuestoes = perguntas.length;
+
+    elementoTotalQuestoes.innerHTML = contagemTotalQuestoes;
+    console.log(contagemTotalQuestoes);
 }
