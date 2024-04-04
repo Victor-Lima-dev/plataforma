@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj": {}
+    "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj": {
+    "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj",
+        "projectPath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\api.csproj",
         "packagesPath": "C:\\Users\\vlima06\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\obj\\",
+        "outputPath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vlima06\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,6 +21,7 @@
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,23 +40,29 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Cors": {
+              "target": "Package",
+              "version": "[5.3.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
