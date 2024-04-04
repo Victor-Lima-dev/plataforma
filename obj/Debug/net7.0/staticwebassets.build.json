@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qxDkEQP/s+zfXPrZHk5GL1wOT0aEWcMFhbAzqkHxqT0=",
+  "Hash": "tt4mmAM0Mm6FeLBVSAD2xgrJLYjp6h/JITeOD5L2Ck4=",
   "Source": "Plataforma",
   "BasePath": "_content/Plataforma",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Questoes\\criar.js"
+    },
+    {
+      "Identity": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\deletar.js",
+      "SourceId": "Plataforma",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\",
+      "BasePath": "_content/Plataforma",
+      "RelativePath": "js/Questoes/deletar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Questoes\\deletar.js"
     },
     {
       "Identity": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\wwwroot\\js\\Questoes\\editar-UNIPONTLG08.js",

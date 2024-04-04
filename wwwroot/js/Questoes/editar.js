@@ -1,6 +1,6 @@
 
 function editarQuestaoHTML(questao) {
-    console.log(questao)
+   
 
 
     var inputMarcado;
