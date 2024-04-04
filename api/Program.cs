@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using api.context;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,15 @@ builder.Services.AddSwaggerGen();
 string mySqlConnectionStr = builder.Configuration.GetConnectionString("DefaultConnection2");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql (mySqlConnectionStr, ServerVersion. AutoDetect (mySqlConnectionStr)));
+
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
+builder.Services.AddCors();
+
 
 var app = builder.Build();
 
