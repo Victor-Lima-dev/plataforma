@@ -1,8 +1,5 @@
 
 function editarQuestaoHTML(questao) {
-   
-
-
     var inputMarcado;
 
     questao.respostas.forEach((element, index) => {
@@ -21,10 +18,13 @@ function editarQuestaoHTML(questao) {
         <div class="bloco2">
         <div class="criarQuestao">
     
-            <form class="criarQuestao" id="formEditarQuestao">
+            <form class="criarQuestao" id="formCriarQuestao">
     
     
                 <div class="criarQuestaoDiv">
+
+                <input type="hidden" name="nomeDoCampo" value="${questao.id}" id ="inputIdPergunta">
+
     
                     <div class="criarQuestaoDiv">
                         <h2 class="criarQuestao-Titulo titulo">Editar Questão </h2>
@@ -60,6 +60,7 @@ function editarQuestaoHTML(questao) {
                             <label class="form-check-label" for="inputRadio1">
                                 Default radio
                             </label>
+                            <input type="hidden" name="nomeDoCampo" value="${questao.respostas[0].id}" id ="inputIdResposta0">
                         </div>
                     </div>
                     <div class="input-group criarQuestao-Justificativa d-none">
@@ -75,6 +76,7 @@ function editarQuestaoHTML(questao) {
                             <label class="form-check-label" for="inputRadio2">
                                 Default radio
                             </label>
+                            <input type="hidden" name="nomeDoCampo" value="${questao.respostas[1].id}" id ="inputIdResposta1">
                         </div>
                     </div>
                     <div class="input-group criarQuestao-Justificativa d-none">
@@ -91,6 +93,7 @@ function editarQuestaoHTML(questao) {
                             <label class="form-check-label" for="inputRadio3">
                                 Default radio
                             </label>
+                            <input type="hidden" name="nomeDoCampo" value="${questao.respostas[2].id}" id ="inputIdResposta2">
                         </div>
                     </div>
                     <div class="input-group criarQuestao-Justificativa d-none">
@@ -106,6 +109,7 @@ function editarQuestaoHTML(questao) {
                             <label class="form-check-label" for="inputRadio4">
                                 Default radio
                             </label>
+                            <input type="hidden" name="nomeDoCampo" value="${questao.respostas[3].id}" id ="inputIdResposta3">
                         </div>
                     </div>
                     <div class="input-group criarQuestao-Justificativa d-none">
@@ -153,3 +157,97 @@ function editarQuestaoHTML(questao) {
     inputCorreto.checked = true;
 }
 
+function getFormDataEditar() {
+    // Seleciona o formulário
+    var form = document.getElementById('formCriarQuestao');
+
+    //remover o evento de recarregar a página
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+    });
+
+    // selecionar os inputs
+    var enunciado = document.getElementById('enunciado').value;
+    var justificativa = document.getElementById('justificativa').value;
+
+    var idPergunta = document.getElementById("inputIdPergunta").value;
+
+    var idsAlternativas = [
+        document.getElementById("inputIdResposta0").value,
+        document.getElementById("inputIdResposta1").value,
+        document.getElementById("inputIdResposta2").value,
+        document.getElementById("inputIdResposta3").value
+    ];
+    
+
+
+
+    // criar um objeto com os dados
+    var formData = {
+        enunciado: enunciado,
+        justificativa: justificativa,
+    };
+
+    // Itera sobre os elementos do formulário
+    for (var i = 1; i <= 4; i++) {
+        formData['alternativa' + i] = document.getElementById('alternativa' + i).value;
+        formData['justificativaAlternativa' + i] = document.getElementById('justificativaAlternativa' + i).value;
+    }
+
+    // Verifica se todos os campos foram preenchidos
+    for (var key in formData) {
+        // Pula a verificação para justificativas
+        if (key.startsWith('justificativa')) {
+            continue;
+        }
+
+        if (formData[key] === '') {
+            alert('Por favor, preencha todos os campos antes de enviar.');
+            return;
+        }
+    }
+
+    const guidId = "0e7745b3-fea7-40ed-8445-ad622e95904f";
+
+    var questaoMontada = {
+        Id:idPergunta,
+        RequisicaoId: guidId,
+        Conteudo: enunciado,
+        Valided: false,
+        Respostas: [],
+        Tags: [
+            {
+                Texto: enunciado,
+                Perguntas: []
+            }
+        ],
+        Explicacao: justificativa,
+        Erro: ""
+    }
+    //adicionar as respostas usando o for
+    for (var i = 1; i <= 4; i++) {
+
+        var indice = i - 1
+
+
+        questaoMontada.Respostas.push({
+            Conteudo: formData['alternativa' + i],
+            Id: idsAlternativas[indice],
+            PerguntaId: guidId,
+            Correta: false,
+            Valided: false,
+            Erro: formData['justificativaAlternativa' + i]
+        });
+    }
+
+    //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
+    for (var i = 1; i <= 4; i++) {
+        if (document.getElementById('inputRadio' + i).checked) {
+            questaoMontada.Respostas[i - 1].Correta = true;
+        }
+    }
+
+   
+    console.log(questaoMontada)
+    return questaoMontada;
+}

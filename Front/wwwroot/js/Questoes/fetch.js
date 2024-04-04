@@ -19,6 +19,7 @@ function getTodasPerguntas() {
 }
 
 function criarQuestaoFetch() {
+   
     var formData = getFormData();
 
     fetch('http://localhost:5268/api/plataforma/criarquestao', {
@@ -39,19 +40,23 @@ function criarQuestaoFetch() {
 }
 
 function editarQuestaoFetch() {
-    var formData = getFormData();
+      // Seleciona o formulário
+     
+    var formData = getFormDataEditar();
 
-    fetch('http://localhost:5084/api/plataforma/editarquestao', {
+    fetch('http://localhost:5268/api/plataforma/editarquestao', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
     })
-        .then((response) => response.json())
+        .then((response) => response.json)
         .then((data) => {
             //recarregar a página
-            location.reload();
+            
+
+            console.log(data)
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -74,11 +79,11 @@ function deletarQuestaoFetch(questaoId) {
         if (!response.ok) {
             throw new Error('Falha ao deletar a questão');
         }
-        location.reload();
+        //location.reload();
     })
     .then(data => {
         // Recarregar a página
-         location.reload();
+         
     })
     .catch(error => {
         console.error('Error:', error);
