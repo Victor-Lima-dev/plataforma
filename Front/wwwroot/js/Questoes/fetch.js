@@ -58,22 +58,29 @@ function editarQuestaoFetch() {
         });
 }
 function deletarQuestaoFetch(questaoId) {
-   
+    // Certifique-se de que questaoId é uma string
+    const questaoIdString = JSON.stringify(questaoId);
 
-    fetch('http://localhost:5268/api/plataforma/deletarquestao', {
+    fetch('http://localhost:5268/api/plataforma/apagarQuestao', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(questaoId),
+        // Envia o questaoId como uma string JSON
+        body: questaoIdString,
     })
-        .then((response) => response.json())
-        .then((data) => {
-            //recarregar a página
-            location.reload();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    .then(response => {
+        // Verifica se a resposta é bem-sucedida
+        if (!response.ok) {
+            throw new Error('Falha ao deletar a questão');
+        }
+        location.reload();
+    })
+    .then(data => {
+        // Recarregar a página
+         location.reload();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
-

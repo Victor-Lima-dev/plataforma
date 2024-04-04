@@ -1,5 +1,5 @@
 function deletarQuestao(questao) {
-    if (confirm('Você tem certeza que deseja excluir esta questão?')) {
+   
         
         var questaoId = questao.id;
 
@@ -7,5 +7,5 @@ function deletarQuestao(questao) {
 
        deletarQuestaoFetch(questaoId);
         
-    } 
+    
 }

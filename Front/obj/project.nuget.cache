@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wcQk0Ht20qpcMESJVdFu9oPp1Kw6QszWqKCcmvdWN/tdPyN3JW4XfdDhOY3MyeeJ6xDy8OmSliPFMTAbTA0fBA==",
+  "dgSpecHash": "SUcW2RlF4hHZMYEbEgG8uDe0G2Hyv4wb0zdqfGGGg64AjGZLLOfVVpSUvgztYS+fcJIYNPO4sIjdI9aS9eZJOQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\Plataforma\\Plataforma.csproj",
+  "projectFilePath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\Front\\Plataforma.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vlima06\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\vlima06\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
