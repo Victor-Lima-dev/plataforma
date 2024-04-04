@@ -25,3 +25,18 @@ function executeCallbackAfterClearingElement(callback) {
     // Executa a função callback
     callback();
 }
+
+function executeCallbackAfterClearingElementSemCallBack() {
+    // Seleciona o elemento com o id 'quadroPrincipal'
+    var quadroPrincipal = document.getElementById('quadroPrincipal');
+
+    // Verifica se o elemento tem filhos
+    if (quadroPrincipal.hasChildNodes()) {
+        // Se tiver, remove todos os filhos
+        while (quadroPrincipal.firstChild) {
+            quadroPrincipal.removeChild(quadroPrincipal.firstChild);
+        }
+    }
+
+ 
+}

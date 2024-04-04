@@ -1,82 +1,18 @@
-function getFormData() {
-    // Seleciona o formulário
-    var form = document.getElementById('formCriarQuestao');
 
-    //remover o evento de recarregar a página
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
+function editarQuestaoHTML(questao) {
+    console.log(questao)
+
+
+    var inputMarcado;
+
+    questao.respostas.forEach((element, index) => {
+        if(element.correta) {
+            inputMarcado = index + 1;
+        }
     });
 
-    // selecionar os inputs
-    var enunciado = document.getElementById('enunciado').value;
-    var justificativa = document.getElementById('justificativa').value;
 
-    // criar um objeto com os dados
-    var formData = {
-        enunciado: enunciado,
-        justificativa: justificativa,
-    };
-
-    // Itera sobre os elementos do formulário
-    for (var i = 1; i <= 4; i++) {
-        formData['alternativa' + i] = document.getElementById('alternativa' + i).value;
-        formData['justificativaAlternativa' + i] = document.getElementById('justificativaAlternativa' + i).value;
-    }
-
-    // Verifica se todos os campos foram preenchidos
-    for (var key in formData) {
-        // Pula a verificação para justificativas
-        if (key.startsWith('justificativa')) {
-            continue;
-        }
-
-        if (formData[key] === '') {
-            alert('Por favor, preencha todos os campos antes de enviar.');
-            return;
-        }
-    }
-
-    const guidId = "0e7745b3-fea7-40ed-8445-ad622e95904f";
-
-    var questaoMontada = {
-        RequisicaoId: guidId,
-        Conteudo: enunciado,
-        Valided: false,
-        Respostas: [],
-        Tags: [
-            {
-                Texto: enunciado,
-                Perguntas: []
-            }
-        ],
-        Explicacao: justificativa,
-        Erro: ""
-    }
-    //adicionar as respostas usando o for
-    for (var i = 1; i <= 4; i++) {
-        questaoMontada.Respostas.push({
-            Conteudo: formData['alternativa' + i],
-            PerguntaId: guidId,
-            Correta: false,
-            Valided: false,
-            Erro: formData['justificativaAlternativa' + i]
-        });
-    }
-
-    //verificar qual inputRadio esta marcado, o ultimo caracter é o número da alternativa
-    for (var i = 1; i <= 4; i++) {
-        if (document.getElementById('inputRadio' + i).checked) {
-            questaoMontada.Respostas[i - 1].Correta = true;
-        }
-    }
-
-   
-
-    return questaoMontada;
-}
-
-
-function criarQuestaoGerarHTML() {
+    executeCallbackAfterClearingElementSemCallBack();
     //selecionar o elemento de id 'quadroPrincipal'
     var mainElement = document.getElementById('quadroPrincipal');
 
@@ -85,16 +21,16 @@ function criarQuestaoGerarHTML() {
         <div class="bloco2">
         <div class="criarQuestao">
     
-            <form class="criarQuestao" id="formCriarQuestao">
+            <form class="criarQuestao" id="formEditarQuestao">
     
     
                 <div class="criarQuestaoDiv">
     
                     <div class="criarQuestaoDiv">
-                        <h2 class="criarQuestao-Titulo titulo">Criar Questão </h2>
+                        <h2 class="criarQuestao-Titulo titulo">Editar Questão </h2>
                         <h3 class="criarQuestao-Titulo">Enunciado</h3>
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" id="enunciado" required></textarea>
+                            <textarea class="form-control" aria-label="With textarea" id="enunciado" required>${questao.conteudo}</textarea>
                         </div>
                     </div>
     
@@ -103,7 +39,7 @@ function criarQuestaoGerarHTML() {
                         <h3 class="criarQuestao-Titulo">Justificativa</h3>
                         <div class="input-group">
     
-                            <textarea class="form-control" aria-label="With textarea" id="justificativa" required></textarea>
+                            <textarea class="form-control" aria-label="With textarea" id="justificativa" required> ${questao.explicacao}</textarea>
                         </div>
     
                     </div>
@@ -113,12 +49,12 @@ function criarQuestaoGerarHTML() {
                 <div class="criarQuestao-Alternativas criarQuestaoDiv">
                     <div class="criarQuestao-AlternativasTitulo">
                         <h3 class="criarQuestao-Titulo">Alternativas</h3>
-                        <button onclick="revelarJustificativas()">Adicionar Justificativas</button>
+                        <button onclick="revelarJustificativas()">Editar Justificativas</button>
                     </div>
     
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
-                        <textarea class="form-control" aria-label="With textarea" id="alternativa1" required></textarea>
+                        <textarea class="form-control" aria-label="With textarea" id="alternativa1" required> ${questao.respostas[0].conteudo}</textarea>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="inputRadio1" required>
                             <label class="form-check-label" for="inputRadio1">
@@ -129,11 +65,11 @@ function criarQuestaoGerarHTML() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa1"></textarea>
+                            id="justificativaAlternativa1">${questao.respostas[0].erro}</textarea>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
-                        <textarea class="form-control" aria-label="With textarea" id="alternativa2" required></textarea>
+                        <textarea class="form-control" aria-label="With textarea" id="alternativa2" required> ${questao.respostas[1].conteudo}</textarea>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="inputRadio2" required>
                             <label class="form-check-label" for="inputRadio2">
@@ -144,12 +80,12 @@ function criarQuestaoGerarHTML() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa2"></textarea>
+                            id="justificativaAlternativa2">${questao.respostas[1].erro}</textarea>
     
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
-                        <textarea class="form-control" aria-label="With textarea" id="alternativa3" required></textarea>
+                        <textarea class="form-control" aria-label="With textarea" id="alternativa3" required>${questao.respostas[2].conteudo}</textarea>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="inputRadio3" required>
                             <label class="form-check-label" for="inputRadio3">
@@ -160,11 +96,11 @@ function criarQuestaoGerarHTML() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa3"></textarea>
+                            id="justificativaAlternativa3">${questao.respostas[2].erro}</textarea>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Alternativa</span>
-                        <textarea class="form-control" aria-label="With textarea" id="alternativa4" required></textarea>
+                        <textarea class="form-control" aria-label="With textarea" id="alternativa4" required>${questao.respostas[3].conteudo}</textarea>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="inputRadio4" required>
                             <label class="form-check-label" for="inputRadio4">
@@ -175,14 +111,14 @@ function criarQuestaoGerarHTML() {
                     <div class="input-group criarQuestao-Justificativa d-none">
                         <span class="input-group-text span-justificativa">Justificativa</span>
                         <textarea class="form-control" aria-label="With textarea"
-                            id="justificativaAlternativa4"></textarea>
+                            id="justificativaAlternativa4">${questao.respostas[3].erro}</textarea>
                     </div>
                 </div>
     
                 <div class="CriarQuestao-botaoSalvar">
     
                     <button type="submit" id="botaoSalvar" class="bloco1-Botao botaoSalvar"
-                        onclick="criarQuestaoFetch()">Salvar</button>
+                        onclick="editarQuestaoFetch()">Salvar</button>
                 </div>
     
             </form>
@@ -208,14 +144,12 @@ function criarQuestaoGerarHTML() {
 
     // Insere o código HTML como o último filho do elemento 'main'
     mainElement.insertAdjacentHTML('beforeend', html);
-}
 
-function revelarJustificativas() {
-    //remover o evento de recarregar a página
-    event.preventDefault();
-    var justificativas = document.querySelectorAll('.criarQuestao-Justificativa');
-    justificativas.forEach(function (justificativa) {
-        justificativa.classList.toggle('d-none');
-    });
+
+    var stringInput = "inputRadio" + inputMarcado;
+
+    var inputCorreto = document.getElementById(stringInput)
+
+    inputCorreto.checked = true;
 }
 

@@ -38,3 +38,23 @@ function criarQuestaoFetch() {
         });
 }
 
+function editarQuestaoFetch() {
+    var formData = getFormData();
+
+    fetch('http://localhost:5084/api/plataforma/editarquestao', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            //recarregar a página
+            location.reload();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
