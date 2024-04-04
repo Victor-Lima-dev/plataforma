@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using api.context;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace api.Controllers
 {
@@ -12,14 +14,14 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public class Plataforma : ControllerBase
     {
-         private readonly AppDbContext _context;
-        
+        private readonly AppDbContext _context;
+
         public Plataforma(AppDbContext context)
         {
             _context = context;
         }
 
-         [HttpPost("CriarQuestao")]
+        [HttpPost("CriarQuestao")]
         public async Task<IActionResult> CriarQuestao(Pergunta pergunta)
         {
             //gerar um guid para a pergunta Id
@@ -51,8 +53,6 @@ namespace api.Controllers
                 return BadRequest(verificarPergunta);
             }
 
-
-
             _context.Perguntas.Add(pergunta);
 
             await _context.SaveChangesAsync();
@@ -60,10 +60,10 @@ namespace api.Controllers
             return Ok(pergunta);
         }
 
-           [HttpGet("ListarQuestoes")]
+        [HttpGet("ListarQuestoes")]
         public async Task<IActionResult> ListarQuestoes()
         {
-           // var perguntas = _context.Perguntas.ToList();
+            // var perguntas = _context.Perguntas.ToList();
 
             //var perguntas = _context.Perguntas.Include(p => p.Respostas).Include(p => p.TAGs).ToList();
 
@@ -77,10 +77,10 @@ namespace api.Controllers
 
 
             return Ok(perguntas);
-        }  
+        }
 
-          [HttpGet("ResponderQuestao")]
-        public async Task<IActionResult> ResponderQuestao (string IdPergunta, string IdResposta)
+        [HttpGet("ResponderQuestao")]
+        public async Task<IActionResult> ResponderQuestao(string IdPergunta, string IdResposta)
         {
             //converter para guid os dois Ids
 
@@ -126,6 +126,80 @@ namespace api.Controllers
 
             return Ok(tags);
         }
-        
+
+
+        [HttpDelete("apagarQuestao")]
+        public async Task<IActionResult> apagarQuestao([FromBody] string questaoId)
+        {
+
+            var idRecebido = questaoId.Replace("[", "").Replace("]", "").Replace("\"", "");
+
+            var idConvertido = Guid.Parse(idRecebido);
+
+            var pergunta = _context.Perguntas.Where(x => x.Id == idConvertido).FirstOrDefault();
+
+            if (pergunta == null)
+            {
+                return BadRequest("A pergunta não existe");
+            }
+
+            _context.Perguntas.Remove(pergunta);
+            _context.SaveChanges();
+
+            Console.WriteLine(idConvertido);
+
+            return Ok();
+        }
+
+        [HttpPut("editarQuestao")]
+
+       public IActionResult EditarQuestao(Pergunta pergunta)
+        {
+            var idRecebido = pergunta.Id;
+
+            var perguntaBanco = _context.Perguntas
+    .Include(p => p.Respostas) // Inclui as respostas relacionadas
+    .Include(p => p.TAGs) // Inclui as tags relacionadas
+    .FirstOrDefault(p => p.Id == idRecebido); // Adiciona o filtro para obter a pergunta específica
+
+
+            // Certifique-se de que idPergunta é o identificador da pergunta que você deseja obter.
+            if (perguntaBanco == null)
+            {
+                return BadRequest("A pergunta não existe");
+            }
+
+
+        perguntaBanco.Conteudo = pergunta.Conteudo;
+        perguntaBanco.Explicacao = pergunta.Explicacao;
+
+       foreach( var resposta in pergunta.Respostas)
+       {
+
+        //verificar se a resposta existe
+
+        var respostaBanco = _context.Respostas.FirstOrDefault(p => p.Id == resposta.Id);
+
+        if (respostaBanco == null)
+        {
+            return BadRequest("A resposta não existe");
+        }
+
+        respostaBanco.Conteudo = resposta.Conteudo;
+        respostaBanco.Correta = resposta.Correta;
+        respostaBanco.Erro = resposta.Erro;
+
+       }
+
+     _context.SaveChanges();
+
+
+
+            return Ok();
+        }
+
+
+
+
     }
 }
