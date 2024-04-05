@@ -86,6 +86,7 @@ gerarTags(tags);
 
 async function gerarTags(tags)
 {
+    var tags = tags;
 
     var boxTag = document.getElementById('boxTags');
 
@@ -101,7 +102,7 @@ async function gerarTags(tags)
     for (var i = 0; i < tags.length; i++) {
 
         var htmlTag = `
-            <span class="tag span-Destaque"> ${tags[i].texto}</span>     
+            <span class="tag span-Destaque tagFiltro" onclick = filtrarQuestoesPorTag("${tags[i].id}")> ${tags[i].texto}</span>     
             `
             boxTag.insertAdjacentHTML('beforeend', htmlTag);
     }

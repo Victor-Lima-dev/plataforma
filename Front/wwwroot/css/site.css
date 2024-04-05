@@ -600,3 +600,9 @@ body
   padding: .5rem;
   flex-wrap: wrap;
 }
+
+.tagFiltro
+{
+  cursor: pointer;
+}
+
