@@ -18,6 +18,31 @@ function getTodasPerguntas() {
     });
 }
 
+
+function getTodasTags() {
+    return fetch('http://localhost:5268/api/plataforma/ListarTags', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        var tagsRetornadas = Object.values(data);
+
+        var tags = [];
+
+        tags = tagsRetornadas;
+        
+        return tags
+
+
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
 function criarQuestaoFetch() {
    
     var formData = getFormData();

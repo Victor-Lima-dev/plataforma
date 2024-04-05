@@ -35,6 +35,8 @@ function gerarCardsQuestoes(questoes) {
 async function listarTodasPerguntas() {
 
     await getTodasPerguntas();
+    
+
 
     var htmlbase =
         `
@@ -46,29 +48,20 @@ async function listarTodasPerguntas() {
 
 <h2 class = "titulo">Todas as Perguntas</h2>
 <input id = "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
+
+</div>
+
 </div>
 
     <div class="listaTags" >
     <h5 class = "">Filtrar por Tags</h5>
 
-    <input id= "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
-
-            <div id="boxTags">
-
-            <span class="tag span-Destaque"> Tag1</span>
-            <span class="tag span-Destaque"> Tag1</span>
-            <span class="tag span-Destaque"> Tag1</span>
-            <span class="tag span-Destaque"> Tag1</span>
-            <span class="tag span-Destaque"> Tag1</span>
-            <span class="tag span-Destaque"> Tag1</span>
-            
-            
-            </div>
+    <input id= "procurarPorTag" oninput="filtarTags()"> </input>
+    <div id="boxTags">
+    </div>
 
     </div>
-     
 
-</div>
 <div class="listaQuestoes">
 
 </div>
@@ -80,12 +73,39 @@ async function listarTodasPerguntas() {
 
 </div>
 </div>`
+var quadro = document.getElementById('quadroPrincipal');
 
-    var quadro = document.getElementById('quadroPrincipal');
+quadro.insertAdjacentHTML('beforeend', htmlbase);
 
-    quadro.insertAdjacentHTML('beforeend', htmlbase);
+var tags = await getTodasTags();
 
-    gerarCardsQuestoes(questoes);
+gerarTags(tags);
+
+ gerarCardsQuestoes(questoes);
+}
+
+async function gerarTags(tags)
+{
+
+    var boxTag = document.getElementById('boxTags');
+
+
+    // Remove todos os nós filhos do elemento 'divQuestoes'
+    while (boxTag.firstChild) {
+        boxTag.removeChild(boxTag.firstChild);
+    }
+    
+
+
+
+    for (var i = 0; i < tags.length; i++) {
+
+        var htmlTag = `
+            <span class="tag span-Destaque"> ${tags[i].texto}</span>     
+            `
+            boxTag.insertAdjacentHTML('beforeend', htmlTag);
+    }
+
 }
 
 
