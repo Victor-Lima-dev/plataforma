@@ -577,3 +577,26 @@ body
   padding: .5rem;
   border-radius: 10px;
 }
+
+.listaTags
+{
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem;
+  flex-wrap: wrap;
+}
+
+.filtroEnunciado
+{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem;
+  flex-wrap: wrap;
+}

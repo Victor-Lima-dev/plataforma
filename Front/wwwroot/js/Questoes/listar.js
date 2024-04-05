@@ -41,8 +41,31 @@ async function listarTodasPerguntas() {
 <div class="bloco3">
 <div class="divQuestoes">
 <div class="questoesTitulo">
-    <h2 class = "titulo">Todas as Perguntas</h2>
-    <input id = "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
+
+<div class="filtroEnunciado">
+
+<h2 class = "titulo">Todas as Perguntas</h2>
+<input id = "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
+</div>
+
+    <div class="listaTags" >
+    <h5 class = "">Filtrar por Tags</h5>
+
+    <input id= "procurarPorEnunciado" oninput="filtrarQuestoesPorEnunciado()"> </input>
+
+            <div id="boxTags">
+
+            <span class="tag span-Destaque"> Tag1</span>
+            <span class="tag span-Destaque"> Tag1</span>
+            <span class="tag span-Destaque"> Tag1</span>
+            <span class="tag span-Destaque"> Tag1</span>
+            <span class="tag span-Destaque"> Tag1</span>
+            <span class="tag span-Destaque"> Tag1</span>
+            
+            
+            </div>
+
+    </div>
      
 
 </div>
@@ -66,8 +89,7 @@ async function listarTodasPerguntas() {
 }
 
 
-function preencherTelaInicial(perguntas)
-{
+function preencherTelaInicial(perguntas) {
     var elementoTotalQuestoes = document.getElementById("totalExercicios");
 
     var contagemTotalQuestoes = perguntas.length;
