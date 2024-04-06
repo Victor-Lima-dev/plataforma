@@ -59,22 +59,63 @@ namespace api.Controllers
 
             return Ok(pergunta);
         }
+        [HttpPost("CriarQuestaojSON")]
+        public async Task<IActionResult> CriarQuestaojSON(Pergunta pergunta)
+        {
+            //gerar um guid para a pergunta Id
+
+            pergunta.Id = Guid.NewGuid();
+            pergunta.RequisicaoId = Guid.NewGuid();
+
+            //serializar a pergunta como json e retornar
+
+            //loop para colocar o id da pergunta nas respostas e criar um id para cada item
+
+            foreach (var resposta in pergunta.Respostas)
+            {
+                resposta.Id = Guid.NewGuid();
+                resposta.PerguntaId = pergunta.Id;
+            }
+
+            //loop para colocar o id da pergunta nas tags e criar um id para cada item
+
+            foreach (var tag in pergunta.TAGs)
+            {
+                tag.Id = Guid.NewGuid();
+                //loop para colocar o id da tag nas perguntas
+                tag.Perguntas.Add(pergunta);
+            }
+
+            var verificarPergunta = Pergunta.VerificarPergunta(pergunta);
+
+            if (!string.IsNullOrEmpty(verificarPergunta))
+            {
+                return BadRequest(verificarPergunta);
+            }
+
+            _context.Perguntas.Add(pergunta);
+
+
+
+
+
+
+
+            await _context.SaveChangesAsync();
+
+            return Ok(pergunta);
+        }
 
         [HttpGet("ListarQuestoes")]
         public async Task<IActionResult> ListarQuestoes()
         {
-            // var perguntas = _context.Perguntas.ToList();
-
-            //var perguntas = _context.Perguntas.Include(p => p.Respostas).Include(p => p.TAGs).ToList();
-
-            var perguntas = _context.Perguntas.Select(p => new
+            var perguntas =  _context.Perguntas.Select(p => new
             {
                 p.Id,
                 p.Conteudo,
                 p.Respostas,
                 p.TAGs
             }).ToList();
-
 
             return Ok(perguntas);
         }
@@ -118,15 +159,13 @@ namespace api.Controllers
             }
 
         }
-
         [HttpGet("ListarTags")]
         public async Task<IActionResult> ListarTags()
         {
-            var tags = _context.TAGs.ToList();
+            var tags =  _context.TAGs.ToList();
 
             return Ok(tags);
         }
-
 
         [HttpDelete("apagarQuestao")]
         public async Task<IActionResult> apagarQuestao([FromBody] string questaoId)
@@ -153,7 +192,7 @@ namespace api.Controllers
 
         [HttpPut("editarQuestao")]
 
-       public IActionResult EditarQuestao(Pergunta pergunta)
+        public IActionResult EditarQuestao(Pergunta pergunta)
         {
             var idRecebido = pergunta.Id;
 
@@ -170,28 +209,28 @@ namespace api.Controllers
             }
 
 
-        perguntaBanco.Conteudo = pergunta.Conteudo;
-        perguntaBanco.Explicacao = pergunta.Explicacao;
+            perguntaBanco.Conteudo = pergunta.Conteudo;
+            perguntaBanco.Explicacao = pergunta.Explicacao;
 
-       foreach( var resposta in pergunta.Respostas)
-       {
+            foreach (var resposta in pergunta.Respostas)
+            {
 
-        //verificar se a resposta existe
+                //verificar se a resposta existe
 
-        var respostaBanco = _context.Respostas.FirstOrDefault(p => p.Id == resposta.Id);
+                var respostaBanco = _context.Respostas.FirstOrDefault(p => p.Id == resposta.Id);
 
-        if (respostaBanco == null)
-        {
-            return BadRequest("A resposta não existe");
-        }
+                if (respostaBanco == null)
+                {
+                    return BadRequest("A resposta não existe");
+                }
 
-        respostaBanco.Conteudo = resposta.Conteudo;
-        respostaBanco.Correta = resposta.Correta;
-        respostaBanco.Erro = resposta.Erro;
+                respostaBanco.Conteudo = resposta.Conteudo;
+                respostaBanco.Correta = resposta.Correta;
+                respostaBanco.Erro = resposta.Erro;
 
-       }
+            }
 
-     _context.SaveChanges();
+            _context.SaveChanges();
 
 
 
