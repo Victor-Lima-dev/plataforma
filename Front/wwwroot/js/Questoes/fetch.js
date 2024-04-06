@@ -63,6 +63,27 @@ function criarQuestaoFetch() {
             console.error('Error:', error);
         });
 }
+function criarQuestaoJsonFetch(questaoJson) {
+   
+    console.log(questaoJson)
+
+    fetch('http://localhost:5268/api/plataforma/criarquestaojson', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(questaoJson),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            //recarregar a página
+            
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 
 function editarQuestaoFetch() {
       // Seleciona o formulário

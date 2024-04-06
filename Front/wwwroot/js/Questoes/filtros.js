@@ -48,21 +48,16 @@ async function filtrarQuestoesPorTag(tag)
 {
     await getTodasPerguntas();
 
-    console.log(questoes)
+    // TODO: Buscar as perguntas que possuem a tag fornecida como parâmetro
+    //       e mostrar as perguntas filtradas na página
 
     var tagId = tag;
 
-    // Supondo que 'questoes' é um array de objetos questão e cada 'questao' tem uma propriedade 'tags' que é um array de tags
-var questoesFiltradas = questoes.filter(function (questao) {
-    // Verifica se alguma das tags da questão tem o id igual a 'tagId'
-    return questao.taGs.some(function (tag) {
-        return tag.id === tagId;
-    });
-});
+    var questoesFiltradas = questoes.filter(questao => 
+        questao.taGs.some(tag => tag.id === tagId)
+    );
 
-
-   
-gerarCardsQuestoes(questoesFiltradas);
+    gerarCardsQuestoes(questoesFiltradas);
 
 }
 

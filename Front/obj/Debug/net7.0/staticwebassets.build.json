@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "80A7/tar2U26ZmlCuw0JM+nif6B6zgNq2gNjcQdIXG8=",
+  "Hash": "UABfTDrJjrk0HVCTRnC63SZQPPLHWL9brpYyr5Mw2Y8=",
   "Source": "Plataforma",
   "BasePath": "_content/Plataforma",
   "Mode": "Default",
@@ -185,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Questoes\\filtros.js"
+    },
+    {
+      "Identity": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\Front\\wwwroot\\js\\Questoes\\json.js",
+      "SourceId": "Plataforma",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\Front\\wwwroot\\",
+      "BasePath": "_content/Plataforma",
+      "RelativePath": "js/Questoes/json.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Questoes\\json.js"
     },
     {
       "Identity": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Plataforma\\Front\\wwwroot\\js\\Questoes\\listar.js",
