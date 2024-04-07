@@ -182,10 +182,18 @@ namespace api.Controllers
                 return BadRequest("A pergunta não existe");
             }
 
+            //procurar todas as respostas com esse id e apagar
+
+            var respostas = _context.Respostas.Where(x => x.PerguntaId == idConvertido).ToList();
+
+            foreach (var resposta in respostas)
+            {
+                _context.Respostas.Remove(resposta);
+            }
+
             _context.Perguntas.Remove(pergunta);
             _context.SaveChanges();
 
-            Console.WriteLine(idConvertido);
 
             return Ok();
         }
