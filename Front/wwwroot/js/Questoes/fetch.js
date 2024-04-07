@@ -43,8 +43,8 @@ function getTodasTags() {
     });
 }
 
-function criarQuestaoFetch() {
-   
+function criarQuestaoFetchNormal() {
+   console.log("criarQuestaoFetchNormal")
     var formData = getFormData();
 
     fetch('http://localhost:5268/api/plataforma/criarquestao', {

@@ -253,7 +253,7 @@ function salvarJSON() {
 
   console.log(questaoDeserializada);
 
-  //criarQuestaoJsonFetch(questaoDeserializada);
+  criarQuestaoJsonFetch(questaoDeserializada);
 }
 
 var idCounter = 2;

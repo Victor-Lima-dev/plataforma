@@ -448,10 +448,9 @@ body
 
 .boxQuestao
 {
-  height: 10rem;
+  height: auto;
   width: 10rem;
-  padding: var(--paddingPadrao);
-
+  padding: .5rem;
   background-color: var(--fundoPrincipal);
 
   display: flex;
@@ -464,7 +463,39 @@ body
   transition: .1s;
 
   cursor: pointer;
+
 }
+.boxAcoes
+{
+  display: flex;
+  justify-content: space-around;
+  gap: .5rem;
+}
+
+.boxTags
+{
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: 100%;
+}
+
+#boxTags
+{
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.questaoEnunciado
+{
+  text-align: center;
+  min-height: 5rem;
+}
+
+
 
 .boxQuestao:hover
 {

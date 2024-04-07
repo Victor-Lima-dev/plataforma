@@ -43,12 +43,7 @@ function getFormData() {
         Conteudo: enunciado,
         Valided: false,
         Respostas: [],
-        Tags: [
-            {
-                Texto: enunciado,
-                Perguntas: []
-            }
-        ],
+        Tags: [],
         Explicacao: justificativa,
         Erro: ""
     }
@@ -70,7 +65,22 @@ function getFormData() {
         }
     }
 
-   
+    // questaoMontada.Tags = [];
+    // var i = 1;
+    // while (true) {
+    //   var tagInput = document.getElementById("tagId" + i);
+    //   if (tagInput) {
+    //     questaoDeserializada.Tags.push({
+    //       Texto: tagInput.value,
+    //       Id: guidId
+    //     });
+    //     i++;
+    //   } else {
+    //     break;
+    //   }
+    // }
+
+
 
     return questaoMontada;
 }
@@ -101,7 +111,6 @@ function criarQuestaoGerarHTML() {
 
                         <div class="boxCriarTags" id ="boxCriarTags">
 
-      <button onclick="criarTagHTML()">Adicionar Tag </button>
 
 
           <div class="boxTag">
@@ -197,7 +206,7 @@ function criarQuestaoGerarHTML() {
                 <div class="CriarQuestao-botaoSalvar">
     
                     <button type="submit" id="botaoSalvar" class="bloco1-Botao botaoSalvar"
-                        onclick="criarQuestaoFetch()">Salvar</button>
+                        onclick="criarQuestaoFetchNormal()">Salvar</button>
                 </div>
     
             </form>

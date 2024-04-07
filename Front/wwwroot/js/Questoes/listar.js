@@ -23,8 +23,10 @@ function gerarCardsQuestoes(questoes) {
 
         html += `
                 </div>
+                <div class="boxAcoes">
                 <button class="btnEditar" onclick="event.stopPropagation(); editarQuestaoHTML(questoes[${i}])">Editar</button>
                 <button class="btnApagar" onclick="event.stopPropagation(); deletarQuestao(questoes[${i}])">Apagar</button>
+                </div>
             </div>`;
 
         // Insere o HTML da pergunta no elemento 'divQuestoes'

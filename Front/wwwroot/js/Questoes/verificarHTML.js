@@ -40,3 +40,8 @@ function executeCallbackAfterClearingElementSemCallBack() {
 
  
 }
+
+function teste()
+{
+    console.log('teste')
+}	
