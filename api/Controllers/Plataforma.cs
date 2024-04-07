@@ -187,15 +187,29 @@ namespace api.Controllers
         public async Task<IActionResult> ListarTags()
         {
             var tags = _context.TAGs.ToList();
-            //incluindo as perguntas relacionadas a cada tag
-
+            
             foreach (var tag in tags)
             {
                 tag.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tag.Id)).ToList();
             }
-
-
-            return Ok(tags);
+            
+            var tagsPerguntas = new List<TAG>(tags);
+            var tagsToRemove = new List<TAG>();
+            
+            foreach (var tag in tagsPerguntas)
+            {
+                if (tag.Perguntas.Count == 0)
+                {
+                    tagsToRemove.Add(tag);
+                }
+            }
+            
+            foreach (var tag in tagsToRemove)
+            {
+                tagsPerguntas.Remove(tag);
+            }
+            
+            return Ok(tagsPerguntas);
         }
 
         [HttpDelete("apagarQuestao")]
@@ -221,11 +235,6 @@ namespace api.Controllers
             {
                 _context.Respostas.Remove(resposta);
             }
-
-          
-
-          
-
             _context.Perguntas.Remove(pergunta);
             _context.SaveChanges();
 
