@@ -222,23 +222,9 @@ namespace api.Controllers
                 _context.Respostas.Remove(resposta);
             }
 
-            //pegar o id da pergunta e procurar as suas tags
+          
 
-            var tags = _context.TAGs.Where(x => x.Perguntas.Any(p => p.Id == idConvertido)).ToList();
-
-            //verificar se a tag tem mais de uma pergunta
-
-            foreach (var tag in tags)
-            {
-                if (tag.Perguntas.Count > 1)
-                {
-                    tag.Perguntas.Remove(pergunta);
-                }
-                else
-                {
-                    _context.TAGs.Remove(tag);
-                }
-            }
+          
 
             _context.Perguntas.Remove(pergunta);
             _context.SaveChanges();
