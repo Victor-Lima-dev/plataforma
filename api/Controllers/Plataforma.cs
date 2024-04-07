@@ -77,14 +77,43 @@ namespace api.Controllers
                 resposta.PerguntaId = pergunta.Id;
             }
 
-            //loop para colocar o id da pergunta nas tags e criar um id para cada item
+
+
+            //vamos verificar se a tag já existe, mas para isso precisamos normalizar o nome da tag
+            List<TAG> tagsParaAdicionar = new List<TAG>();
+            List<TAG> tagsParaRemover = new List<TAG>();
+
 
             foreach (var tag in pergunta.TAGs)
             {
-                tag.Id = Guid.NewGuid();
-                //loop para colocar o id da tag nas perguntas
+                var tagTextoNormalizado = tag.Texto.ToLower().Trim();
+                var tagBanco = _context.TAGs.FirstOrDefault(t => t.Texto.ToLower().Trim() == tagTextoNormalizado);
+
+                if (tagBanco != null)
+                {
+                    tagsParaRemover.Add(tag);
+                    tagsParaAdicionar.Add(tagBanco);
+                }
+                else
+                {
+                    tag.Id = Guid.NewGuid();
+                }
+
                 tag.Perguntas.Add(pergunta);
             }
+
+            foreach (var tag in tagsParaRemover)
+            {
+                pergunta.TAGs.Remove(tag);
+            }
+
+            foreach (var tag in tagsParaAdicionar)
+            {
+                pergunta.TAGs.Add(tag);
+            }
+
+
+
 
             var verificarPergunta = Pergunta.VerificarPergunta(pergunta);
 
@@ -104,7 +133,7 @@ namespace api.Controllers
         [HttpGet("ListarQuestoes")]
         public async Task<IActionResult> ListarQuestoes()
         {
-            var perguntas =  _context.Perguntas.Select(p => new
+            var perguntas = _context.Perguntas.Select(p => new
             {
                 p.Id,
                 p.Conteudo,
@@ -157,14 +186,14 @@ namespace api.Controllers
         [HttpGet("ListarTags")]
         public async Task<IActionResult> ListarTags()
         {
-            var tags =  _context.TAGs.ToList();
+            var tags = _context.TAGs.ToList();
             //incluindo as perguntas relacionadas a cada tag
 
             foreach (var tag in tags)
             {
                 tag.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tag.Id)).ToList();
             }
-           
+
 
             return Ok(tags);
         }
