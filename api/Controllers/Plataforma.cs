@@ -96,11 +96,6 @@ namespace api.Controllers
             _context.Perguntas.Add(pergunta);
 
 
-
-
-
-
-
             await _context.SaveChangesAsync();
 
             return Ok(pergunta);
@@ -163,6 +158,13 @@ namespace api.Controllers
         public async Task<IActionResult> ListarTags()
         {
             var tags =  _context.TAGs.ToList();
+            //incluindo as perguntas relacionadas a cada tag
+
+            foreach (var tag in tags)
+            {
+                tag.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tag.Id)).ToList();
+            }
+           
 
             return Ok(tags);
         }
@@ -189,6 +191,24 @@ namespace api.Controllers
             foreach (var resposta in respostas)
             {
                 _context.Respostas.Remove(resposta);
+            }
+
+            //pegar o id da pergunta e procurar as suas tags
+
+            var tags = _context.TAGs.Where(x => x.Perguntas.Any(p => p.Id == idConvertido)).ToList();
+
+            //verificar se a tag tem mais de uma pergunta
+
+            foreach (var tag in tags)
+            {
+                if (tag.Perguntas.Count > 1)
+                {
+                    tag.Perguntas.Remove(pergunta);
+                }
+                else
+                {
+                    _context.TAGs.Remove(tag);
+                }
             }
 
             _context.Perguntas.Remove(pergunta);
