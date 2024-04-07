@@ -89,6 +89,8 @@ function criarQuestaoGerarHTML() {
     
     
                 <div class="criarQuestaoDiv">
+
+                
     
                     <div class="criarQuestaoDiv">
                         <h2 class="criarQuestao-Titulo titulo">Criar Questão </h2>
@@ -96,6 +98,19 @@ function criarQuestaoGerarHTML() {
                         <div class="input-group">
                             <textarea class="form-control" aria-label="With textarea" id="enunciado" required></textarea>
                         </div>
+
+                        <div class="boxCriarTags" id ="boxCriarTags">
+
+      <button onclick="criarTagHTML()">Adicionar Tag </button>
+
+
+          <div class="boxTag">
+              <label for="tagId1">Tag</label>
+              <input type="text" id="tagId1" name="tagId1" class="form-control">
+          </div>
+         
+
+      </div>
                     </div>
     
     

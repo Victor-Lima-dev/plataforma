@@ -1,22 +1,19 @@
-function areaJSON()
-{
+function areaJSON() {
   var mainElement = document.getElementById('quadroPrincipal');
 
   var html = `<div class="blocoJSON">
   <div class="boxtextAreaJson">
       <h3>JSON</h3>
 
-      <div class="boxCriarTags">
+      <button onclick="criarTagHTML()">Adicionar Tag </button>
+
+      <div class="boxCriarTags" id ="boxCriarTags">
 
           <div class="boxTag">
               <label for="tagId1">Tag</label>
               <input type="text" id="tagId1" name="tagId1" class="form-control">
           </div>
-          <div class="boxTag">
-              <label for="tagId2">Tag</label>
-              <input type="text" id="tagId2" name="tagId2" class="form-control">
-          </div>
-          
+         
 
       </div>
 
@@ -111,7 +108,7 @@ e a Europa.",
 
 function copiarPrompt() {
 
-    var prompt = `""you want me to help you study for the college exam, providing a question based on a text that you send me. You want the question to be multiple choice, with four alternatives,You also want me to put my answer in JSON format, following the model that you indicate. Model The answer should follow the following JSON model
+  var prompt = `""you want me to help you study for the college exam, providing a question based on a text that you send me. You want the question to be multiple choice, with four alternatives,You also want me to put my answer in JSON format, following the model that you indicate. Model The answer should follow the following JSON model
     #TEXT IN BRAZILIAN PORTUGUESE#
     {
     {
@@ -195,26 +192,25 @@ function copiarPrompt() {
     """"`
 
   //passar o prompt para o clipboard
-    navigator.clipboard.writeText(prompt).then(() => {
-        
-    })
+  navigator.clipboard.writeText(prompt).then(() => {
+
+  })
 }
 
 
-function salvarJSON ()
-{
+function salvarJSON() {
   //desabilitar o efeito de sumibt
- 
+
 
 
   var json = document.getElementById("areaJSON").value;
 
   const guidId = "0e7745b3-fea7-40ed-8445-ad622e95904f";
 
-  var tag1Texto = document.getElementById("tagId1").value;
-  var tag2Texto = document.getElementById("tagId2").value;
+  // var tag1Texto = document.getElementById("tagId1").value;
+  // var tag2Texto = document.getElementById("tagId2").value;
 
-  
+
   var questaoDeserializada = JSON.parse(json);
 
   questaoDeserializada.Id = guidId;
@@ -226,21 +222,53 @@ function salvarJSON ()
     resposta.PerguntaId = guidId;
   });
 
-  questaoDeserializada.Tags = [
-    {
-        Texto: tag1Texto,
+  questaoDeserializada.Tags = [];
+  var i = 1;
+  while (true) {
+    var tagInput = document.getElementById("tagId" + i);
+    if (tagInput) {
+      questaoDeserializada.Tags.push({
+        Texto: tagInput.value,
         Id: guidId
-    },
-    {
-        Texto: tag2Texto,
-        Id: guidId
+      });
+      i++;
+    } else {
+      break;
     }
-    // Adicione mais tags conforme necessário
-];
+  }
 
-questaoDeserializada.Erro = "";
+  // questaoDeserializada.Tags = [
+  //   {
+  //     Texto: tag1Texto,
+  //     Id: guidId
+  //   },
+  //   {
+  //     Texto: tag2Texto,
+  //     Id: guidId
+  //   }
+  //   // Adicione mais tags conforme necessário
+  // ];
+
+  questaoDeserializada.Erro = "";
 
   console.log(questaoDeserializada);
 
-  criarQuestaoJsonFetch(questaoDeserializada);
+  //criarQuestaoJsonFetch(questaoDeserializada);
+}
+
+var idCounter = 2;
+
+function criarTagHTML() {
+  var boxTag = document.getElementById("boxCriarTags");
+
+  var html = `<div class="boxTag">
+  <label for="tagId${idCounter}">Tag</label>
+  <input type="text" id="tagId${idCounter}" name="tagId${idCounter}" class="form-control">
+</div>`;
+
+idCounter++;
+
+boxTag.insertAdjacentHTML('beforeend', html);
+
+
 }
