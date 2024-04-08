@@ -138,7 +138,8 @@ namespace api.Controllers
                 p.Id,
                 p.Conteudo,
                 p.Respostas,
-                p.TAGs
+                p.TAGs,
+                p.Explicacao
             }).ToList();
 
             return Ok(perguntas);
@@ -211,6 +212,70 @@ namespace api.Controllers
             
             return Ok(tagsPerguntas);
         }
+
+        [HttpGet("procurarTag")]
+        public async Task<IActionResult> procurarTag([FromBody] string tag)
+        {
+            var tagNormalizada = tag.ToLower().Trim();
+
+            var tagBanco = _context.TAGs.FirstOrDefault(t => t.Texto.ToLower().Trim() == tagNormalizada);
+
+            if (tagBanco == null)
+            {
+                return NotFound("Tag não encontrada");
+            }
+
+            tagBanco.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+
+            return Ok(tagBanco);
+        }
+
+        [HttpGet("procurarQuestaoTAG")]
+        public async Task<IActionResult> procurarQuestaoTAG([FromBody] string tagid)
+        {
+            var idRecebido = tagid.Replace("[", "").Replace("]", "").Replace("\"", "");
+
+            var idConvertido = Guid.Parse(idRecebido);
+
+            var tagBanco = _context.TAGs.FirstOrDefault(t => t.Id == idConvertido);
+
+            if (tagBanco == null)
+            {
+                return NotFound("Tag não encontrada");
+            }
+
+            tagBanco.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+
+            //procurar as respostas dessas perguntas
+
+            foreach (var pergunta in tagBanco.Perguntas)
+            {
+                pergunta.Respostas = _context.Respostas.Where(r => r.PerguntaId == pergunta.Id).ToList();
+            }
+
+            return Ok(tagBanco.Perguntas);
+        }
+
+        [HttpGet("procurarQuestaoEnunciado")]
+
+        public async Task<IActionResult> procurarQuestaoEnunciado ([FromBody] string enunciado)
+        {
+            var enunciadoNormalizado = enunciado.ToLower();
+
+            Console.WriteLine(enunciadoNormalizado);
+
+            var pergunta = _context.Perguntas.FirstOrDefault(p => p.Conteudo.ToLower().Contains(enunciadoNormalizado));
+
+            if (pergunta == null)
+            {
+                return NotFound("Pergunta não encontrada");
+            }
+
+            pergunta.Respostas = _context.Respostas.Where(r => r.PerguntaId == pergunta.Id).ToList();
+
+            return Ok(pergunta);
+        }
+
 
         [HttpDelete("apagarQuestao")]
         public async Task<IActionResult> apagarQuestao([FromBody] string questaoId)
