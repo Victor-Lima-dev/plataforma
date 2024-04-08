@@ -29,7 +29,7 @@ function generateQuestionHTML(question) {
         <p class="alternativaJustificativa">${resposta.erro}
         </p>
         </div>
-        <button class="ajuda d-none botaoJustificativa" onclick="verJustificativa('${resposta.id}')" class="btn btn-primary">Mostrar informações sobre essa alternativa</button>
+        <button class="ajuda d-none botaoJustificativa" onclick="verJustificativa('${resposta.id}')" class="btn btn-primary">Lupa</button>
 `).join('');
 
     var html = `
@@ -57,6 +57,8 @@ function generateQuestionHTML(question) {
 </div>
 `;
 
+    console.log(question)
+
     // Adiciona o HTML ao DOM
     quadro.insertAdjacentHTML('beforeend', html);
 }
@@ -76,14 +78,16 @@ function verJustificativa(respostaI) {
 }
 
 function mostrarAjuda() {
-    var ajuda = document.querySelectorAll('.ajuda');
+   var ajuda = document.querySelectorAll('.ajuda');
 
-    //remover a classe d-none
-    ajuda.forEach(function (element) {
+// verificar se o elemento possui a classe, se tiver, ele remove, se não tiver ele adiciona
+ajuda.forEach(function (element) {
+    if (element.classList.contains('d-none')) {
         element.classList.remove('d-none');
-    });
-
-    ajuda.classList.add('d-none');
+    } else {
+        element.classList.add('d-none');
+    }
+});
 
 }
 
@@ -134,10 +138,10 @@ function animacaoResposta(bool, inputId) {
     if (bool) {
         input.classList.add('respostaCorreta');
         //remover a classe d-none
-        alternativaJustificativa.classList.remove('d-none');
+        // alternativaJustificativa.classList.remove('d-none');
     }
     else {
         input.classList.add('respostaErrada');
-        alternativaJustificativa.classList.remove('d-none');
+        // alternativaJustificativa.classList.remove('d-none');
     }
 }

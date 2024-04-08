@@ -237,18 +237,6 @@ function salvarJSON() {
     }
   }
 
-  // questaoDeserializada.Tags = [
-  //   {
-  //     Texto: tag1Texto,
-  //     Id: guidId
-  //   },
-  //   {
-  //     Texto: tag2Texto,
-  //     Id: guidId
-  //   }
-  //   // Adicione mais tags conforme necessário
-  // ];
-
   questaoDeserializada.Erro = "";
 
   console.log(questaoDeserializada);

@@ -2,6 +2,8 @@ function gerarCardsQuestoes(questoes) {
     // Seleciona o elemento onde as perguntas serão inseridas
     var divQuestoes = document.querySelector('.listaQuestoes');
 
+    console.log(questoes);
+
     // Remove todos os nós filhos do elemento 'divQuestoes'
     while (divQuestoes.firstChild) {
         divQuestoes.removeChild(divQuestoes.firstChild);
