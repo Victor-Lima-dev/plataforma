@@ -135,3 +135,25 @@ function deletarQuestaoFetch(questaoId) {
         console.error('Error:', error);
     });
 }
+
+
+function getTodasPerguntasRetornaPerguntas() {
+    return fetch('http://localhost:5268/api/plataforma/ListarQuestoes', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        var perguntas = Object.values(data);
+        
+        return perguntas
+
+        
+        preencherTelaInicial(questoes);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}

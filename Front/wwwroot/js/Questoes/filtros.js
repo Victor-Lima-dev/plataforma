@@ -1,16 +1,19 @@
 async function filtrarQuestoesPorEnunciado() {
     // Preenche o array de questões
-    await getTodasPerguntas();
+    
+    var questoesRecebidas = await getTodasPerguntasRetornaPerguntas();
 
     //pegar o enunciado do elemendo de id procurarEnunciado
 
     var enunciado = document.getElementById('procurarPorEnunciado').value;
 
     // Filtra o array de questões pelo enunciado
-    var questoesFiltradas = questoes.filter(function (questao) {
+    var questoesFiltradas = questoesRecebidas.filter(function (questao) {
         // Retorna verdadeiro se o enunciado da questão incluir o enunciado fornecido
         return questao.conteudo.toLowerCase().includes(enunciado.toLowerCase());
     });
+
+   
 
     gerarCardsQuestoes(questoesFiltradas);
 
@@ -61,3 +64,27 @@ async function filtrarQuestoesPorTag(tag)
 
 }
 
+async function filtrarQuestoesPorEnunciadoRetornaQuestoes() {
+    // Preenche o array de questões
+
+    await getTodasPerguntas();
+
+    
+
+    //pegar o enunciado do elemendo de id procurarEnunciado
+
+    var enunciado = document.getElementById('procurarPorEnunciado').value;
+
+    // Filtra o array de questões pelo enunciado
+    var questoesFiltradas = questoes.filter(function (questao) {
+        // Retorna verdadeiro se o enunciado da questão incluir o enunciado fornecido
+        return questao.conteudo.toLowerCase().includes(enunciado.toLowerCase());
+    });
+
+    questoesRecebidas = questoesFiltradas;
+
+    //gerarCardsQuestoes(questoesFiltradas);
+
+
+    return questoesFiltradas;
+}

@@ -1,5 +1,7 @@
 function generateQuestionHTML(question) {
     var quadro = document.getElementById('quadroPrincipal');
+
+    console.log(question);
     // Cria as tags
     var tagsHTML = question.taGs.map(tag => `<span class="ResponderQuestaoTAG tag span-Destaque">${tag.texto}</span>`).join('');
 

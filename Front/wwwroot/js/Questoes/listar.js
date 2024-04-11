@@ -1,26 +1,42 @@
-function gerarCardsQuestoes(questoes) {
+
+var questoesRecebidas = []
+
+async function gerarCardsQuestoes(questoesRecebidas) {
     // Seleciona o elemento onde as perguntas serão inseridas
     var divQuestoes = document.querySelector('.listaQuestoes');
-
-    console.log(questoes);
 
     // Remove todos os nós filhos do elemento 'divQuestoes'
     while (divQuestoes.firstChild) {
         divQuestoes.removeChild(divQuestoes.firstChild);
     }
 
-    // Itera sobre a lista de perguntas
-    for (var i = 0; i < questoes.length; i++) {
-        var questaoEnviada = questoes[i]
+
+
+    for (var i = 0; i < questoesRecebidas.length; i++) {
+
+        //pegar a questao e ver em qual posição ela esta no array questoes
+
+        
+        
+
+        //procurar em questoes qual o index da questaoRecebida
+
+        var index = questoes.findIndex(questao => questao.id == questoesRecebidas[i].id);
+
+        console.log(index)
+
+
+
+        var questaoEnviada = questoesRecebidas[i]
         // Cria o HTML para a pergunta atual
         var html = `
-            <div class="boxQuestao" onclick="executeCallbackAfterClearingElement(() => generateQuestionHTML(questoes[${i}]))">
-                <p class="questaoEnunciado">${questoes[i].conteudo}</p>
+            <div class="boxQuestao" onclick="executeCallbackAfterClearingElement(() => generateQuestionHTML(questoes[${index}]))">
+                <p class="questaoEnunciado">${questoesRecebidas[i].conteudo}</p>
                 <div class="boxTags">`;
 
         // Adiciona as tags da pergunta ao HTML
-        for (var j = 0; j < questoes[i].taGs.length; j++) {
-            html += `<span class="tag span-Destaque">${questoes[i].taGs[j].texto}</span>`;
+        for (var j = 0; j < questoesRecebidas[i].taGs.length; j++) {
+            html += `<span class="tag span-Destaque">${questoesRecebidas[i].taGs[j].texto}</span>`;
         }
 
         html += `
