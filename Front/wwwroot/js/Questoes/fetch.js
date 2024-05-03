@@ -84,6 +84,70 @@ function criarQuestaoJsonFetch(questaoJson) {
         });
 }
 
+function filtrarTags(nomeTag) {
+    console.log(nomeTag)
+
+    return fetch(`http://localhost:5268/api/plataforma/procurarTag?tag=${encodeURIComponent(nomeTag)}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        //recarregar a página
+        tags = data;
+        return tags;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
+function filtrarQuestaoTagId(tagId) {
+
+    console.log(tagId)
+
+    return fetch(`http://localhost:5268/api/plataforma/procurarQuestaoTAG?tagid=${encodeURIComponent(tagId)}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        //recarregar a página
+        
+        return data;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
+function filtrarQuestaoEnunciado(enunciado) {
+
+    console.log(enunciado)
+
+    return fetch(`http://localhost:5268/api/plataforma/procurarQuestaoEnunciado?enunciado=${encodeURIComponent(enunciado)}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        //recarregar a página
+        console.log(data)
+        return data;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
 
 function editarQuestaoFetch() {
       // Seleciona o formulário
