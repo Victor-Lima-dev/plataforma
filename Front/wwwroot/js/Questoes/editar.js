@@ -25,6 +25,8 @@ function editarQuestaoHTML(questao) {
 
                 <input type="hidden" name="nomeDoCampo" value="${questao.id}" id ="inputIdPergunta">
 
+                <button onclick="criarTagHTML()">Adicionar Tag </button>
+
     
                     <div class="criarQuestaoDiv">
                         <h2 class="criarQuestao-Titulo titulo">Editar Questão </h2>
@@ -43,6 +45,11 @@ function editarQuestaoHTML(questao) {
                         </div>
     
                     </div>
+
+                    <div class="boxCriarTags" id ="boxCriarTags">
+                    
+                    </div>
+
                 </div>
     
     
@@ -149,6 +156,21 @@ function editarQuestaoHTML(questao) {
     // Insere o código HTML como o último filho do elemento 'main'
     mainElement.insertAdjacentHTML('beforeend', html);
 
+    var boxTag = document.getElementById("boxCriarTags")
+
+    for(i = 0; i < questao.taGs.length; i++) {
+
+        var tagHTML = `  <div class="boxTag">
+        <label for="tagId${i + 1}">TAG</label>
+        <input type="text" id="tagId${i + 1}" name="tagId${i + 1}" value="${questao.taGs[i].texto}" class="form-control">
+    </div>`
+
+
+    boxTag.insertAdjacentHTML('beforeend', tagHTML);
+
+
+    }
+
 
     var stringInput = "inputRadio" + inputMarcado;
 
@@ -215,12 +237,7 @@ function getFormDataEditar() {
         Conteudo: enunciado,
         Valided: false,
         Respostas: [],
-        Tags: [
-            {
-                Texto: enunciado,
-                Perguntas: []
-            }
-        ],
+        Tags: [],
         Explicacao: justificativa,
         Erro: ""
     }
@@ -246,6 +263,20 @@ function getFormDataEditar() {
             questaoMontada.Respostas[i - 1].Correta = true;
         }
     }
+
+    var i = 1;
+  while (true) {
+    var tagInput = document.getElementById("tagId" + i);
+    if (tagInput) {
+        questaoMontada.Tags.push({
+        Texto: tagInput.value,
+        Id: guidId
+      });
+      i++;
+    } else {
+      break;
+    }
+  }
 
    
     console.log(questaoMontada)

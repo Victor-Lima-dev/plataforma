@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.context;
 using api.Models;
+using api.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+
 
 namespace api.Controllers
 {
@@ -16,9 +18,27 @@ namespace api.Controllers
     {
         private readonly AppDbContext _context;
 
-        public Plataforma(AppDbContext context)
+        private readonly IPerguntaRepository _perguntaRepository;
+
+        private readonly IRespostasRepository _respostasRepository;
+
+        private readonly ITagRepository _tagRepository;
+
+        public Plataforma(AppDbContext context, IPerguntaRepository perguntaRepository, IRespostasRepository respostasRepository, ITagRepository tagRepository)
         {
             _context = context;
+            _perguntaRepository = perguntaRepository;
+            _respostasRepository = respostasRepository;
+            _tagRepository = tagRepository;
+        }
+
+        [HttpGet("ListarRespostas")]
+
+        public IActionResult ListarRespostas()
+        {
+           var respostas = _respostasRepository.ListarRespostas();
+
+            return Ok(respostas);
         }
 
         [HttpPost("CriarQuestao")]
@@ -53,12 +73,14 @@ namespace api.Controllers
                 return BadRequest(verificarPergunta);
             }
 
-            _context.Perguntas.Add(pergunta);
+             _perguntaRepository.CriarPergunta(pergunta);
+
 
             await _context.SaveChangesAsync();
 
             return Ok(pergunta);
         }
+
         [HttpPost("CriarQuestaojSON")]
         public async Task<IActionResult> CriarQuestaojSON(Pergunta pergunta)
         {
@@ -86,8 +108,9 @@ namespace api.Controllers
 
             foreach (var tag in pergunta.TAGs)
             {
-                var tagTextoNormalizado = tag.Texto.ToLower().Trim();
-                var tagBanco = _context.TAGs.FirstOrDefault(t => t.Texto.ToLower().Trim() == tagTextoNormalizado);
+              
+                //consulta de tag no banco, ITag Repository?
+                var tagBanco =  _tagRepository.ProcurarTagNome(tag.Texto);
 
                 if (tagBanco != null)
                 {
@@ -112,9 +135,6 @@ namespace api.Controllers
                 pergunta.TAGs.Add(tag);
             }
 
-
-
-
             var verificarPergunta = Pergunta.VerificarPergunta(pergunta);
 
             if (!string.IsNullOrEmpty(verificarPergunta))
@@ -122,25 +142,23 @@ namespace api.Controllers
                 return BadRequest(verificarPergunta);
             }
 
-            _context.Perguntas.Add(pergunta);
+            var perguntaGerada = _perguntaRepository.CriarPergunta(pergunta);
 
-
+            //persistir no bd
             await _context.SaveChangesAsync();
 
-            return Ok(pergunta);
+            return Ok(perguntaGerada);
         }
+
+
+       
+
 
         [HttpGet("ListarQuestoes")]
         public async Task<IActionResult> ListarQuestoes()
         {
-            var perguntas = _context.Perguntas.Select(p => new
-            {
-                p.Id,
-                p.Conteudo,
-                p.Respostas,
-                p.TAGs,
-                p.Explicacao
-            }).ToList();
+
+            var perguntas = _perguntaRepository.ListarPerguntas();
 
             return Ok(perguntas);
         }
@@ -155,7 +173,9 @@ namespace api.Controllers
 
             //verificar se existe a pergunta com esse id
 
-            var pergunta = _context.Perguntas.FirstOrDefault(p => p.Id == guidIdPergunta);
+            var perguntas = _perguntaRepository.ListarPerguntas();
+
+            var pergunta = perguntas.FirstOrDefault(p => p.Id == guidIdPergunta);
 
             if (pergunta == null)
             {
@@ -164,7 +184,11 @@ namespace api.Controllers
 
             //verificar se a resposta existe
 
-            var resposta = _context.Respostas.FirstOrDefault(r => r.Id == guidIdResposta);
+
+            //RespostasRepository?
+            var respostas = _respostasRepository.ListarRespostas();
+
+            var resposta = respostas.FirstOrDefault(r => r.Id == guidIdResposta);
 
             if (resposta == null)
             {
@@ -187,16 +211,25 @@ namespace api.Controllers
         [HttpGet("ListarTags")]
         public async Task<IActionResult> ListarTags()
         {
-            var tags = _context.TAGs.ToList();
-            
+            //Listo as tags
+            //var tags = _context.TAGs.ToList();
+
+            var tags = _tagRepository.ListarTags();
+
+
+            //retorno as tags com as perguntas
             foreach (var tag in tags)
             {
-                tag.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tag.Id)).ToList();
+                var perguntasLista = _perguntaRepository.ListarPerguntas();
+
+
+                tag.Perguntas = perguntasLista.Where(p => p.TAGs.Any(t => t.Id == tag.Id)).ToList();
             }
-            
+
+            //remover as tags que não tem perguntas
             var tagsPerguntas = new List<TAG>(tags);
             var tagsToRemove = new List<TAG>();
-            
+
             foreach (var tag in tagsPerguntas)
             {
                 if (tag.Perguntas.Count == 0)
@@ -204,30 +237,46 @@ namespace api.Controllers
                     tagsToRemove.Add(tag);
                 }
             }
-            
+
             foreach (var tag in tagsToRemove)
             {
                 tagsPerguntas.Remove(tag);
             }
-            
+
             return Ok(tagsPerguntas);
         }
 
         [HttpGet("procurarTag")]
-        public async Task<IActionResult> procurarTag([FromBody] string tag)
+        public async Task<IActionResult> ProcurarTag([FromBody] string tag)
         {
             var tagNormalizada = tag.ToLower().Trim();
 
-            var tagBanco = _context.TAGs.FirstOrDefault(t => t.Texto.ToLower().Trim() == tagNormalizada);
+            //consulta de TAG por texto / nome
 
-            if (tagBanco == null)
+            var tags = _tagRepository.ListarTags();
+
+            var tagsBanco = tags.Where(t => t.Texto.ToLower().Trim().Contains(tagNormalizada)).ToList();
+
+            if (tagsBanco == null)
             {
                 return NotFound("Tag não encontrada");
             }
 
-            tagBanco.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+            //procuro as perguntas que tem essa tag
 
-            return Ok(tagBanco);
+            var perguntasLista = _perguntaRepository.ListarPerguntas();
+
+            foreach (var tagBanco in tagsBanco)
+            {
+                tagBanco.Perguntas = perguntasLista.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+            }
+
+            //tagBanco.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+
+
+            //retorno uma lista de tags com as perguntas
+
+            return Ok(tagsBanco);
         }
 
         [HttpGet("procurarQuestaoTAG")]
@@ -237,21 +286,35 @@ namespace api.Controllers
 
             var idConvertido = Guid.Parse(idRecebido);
 
-            var tagBanco = _context.TAGs.FirstOrDefault(t => t.Id == idConvertido);
+            //consulta de tag por ID
+
+            var tagsLista = _tagRepository.ListarTags();
+
+            var tagBanco = tagsLista.FirstOrDefault(t => t.Id == idConvertido);
 
             if (tagBanco == null)
             {
                 return NotFound("Tag não encontrada");
             }
 
-            tagBanco.Perguntas = _context.Perguntas.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
+            //retorno uma lista de perguntas com essa tag, aqui ela acessa a PerguntasRepository
+
+            var perguntasLista = _perguntaRepository.ListarPerguntas();
+
+            tagBanco.Perguntas = perguntasLista.Where(p => p.TAGs.Any(t => t.Id == tagBanco.Id)).ToList();
 
             //procurar as respostas dessas perguntas
 
+            //aqui ela acessa a RespostasRepository
+
+            var respostaLista = _respostasRepository.ListarRespostas();
+
             foreach (var pergunta in tagBanco.Perguntas)
             {
-                pergunta.Respostas = _context.Respostas.Where(r => r.PerguntaId == pergunta.Id).ToList();
+                pergunta.Respostas = respostaLista.Where(r => r.PerguntaId == pergunta.Id).ToList();
             }
+
+            //retorna as perguntas com as respostas e a tag
 
             return Ok(tagBanco.Perguntas);
         }
@@ -262,18 +325,29 @@ namespace api.Controllers
         {
             var enunciadoNormalizado = enunciado.ToLower();
 
-            Console.WriteLine(enunciadoNormalizado);
+            //consulta de pergunta por enunciado
 
-            var pergunta = _context.Perguntas.FirstOrDefault(p => p.Conteudo.ToLower().Contains(enunciadoNormalizado));
 
-            if (pergunta == null)
+            var perguntas = _perguntaRepository.ListarPerguntasPorEnunciado(enunciadoNormalizado);
+
+            if (perguntas == null)
             {
                 return NotFound("Pergunta não encontrada");
             }
 
-            pergunta.Respostas = _context.Respostas.Where(r => r.PerguntaId == pergunta.Id).ToList();
+            //consulta de respostas por pergunta
 
-            return Ok(pergunta);
+            var respostas = _respostasRepository.ListarRespostas();
+
+            foreach(var pergunta in perguntas)
+            {
+                pergunta.Respostas = respostas.Where(r => r.PerguntaId == pergunta.Id).ToList();
+            }
+
+
+
+
+            return Ok(perguntas);
         }
 
 
@@ -285,38 +359,32 @@ namespace api.Controllers
 
             var idConvertido = Guid.Parse(idRecebido);
 
-            var pergunta = _context.Perguntas.Where(x => x.Id == idConvertido).FirstOrDefault();
+            var pergunta = _perguntaRepository.DeletarPergunta(idConvertido);
 
             if (pergunta == null)
             {
                 return BadRequest("A pergunta não existe");
             }
 
-            //procurar todas as respostas com esse id e apagar
-
-            var respostas = _context.Respostas.Where(x => x.PerguntaId == idConvertido).ToList();
-
-            foreach (var resposta in respostas)
-            {
-                _context.Respostas.Remove(resposta);
-            }
-            _context.Perguntas.Remove(pergunta);
-            _context.SaveChanges();
+            //internamente eu estou excluindo as respostas junto
+     
+          _context.SaveChanges();
 
 
             return Ok();
         }
 
         [HttpPut("editarQuestao")]
-
         public IActionResult EditarQuestao(Pergunta pergunta)
         {
             var idRecebido = pergunta.Id;
 
-            var perguntaBanco = _context.Perguntas
-    .Include(p => p.Respostas) // Inclui as respostas relacionadas
-    .Include(p => p.TAGs) // Inclui as tags relacionadas
-    .FirstOrDefault(p => p.Id == idRecebido); // Adiciona o filtro para obter a pergunta específica
+    //         var perguntaBanco = _context.Perguntas
+    // .Include(p => p.Respostas) // Inclui as respostas relacionadas
+    // .Include(p => p.TAGs) // Inclui as tags relacionadas
+    // .FirstOrDefault(p => p.Id == idRecebido); // Adiciona o filtro para obter a pergunta específica
+
+            var perguntaBanco = _perguntaRepository.BuscarPerguntaPorId(idRecebido);
 
 
             // Certifique-se de que idPergunta é o identificador da pergunta que você deseja obter.
@@ -334,7 +402,7 @@ namespace api.Controllers
 
                 //verificar se a resposta existe
 
-                var respostaBanco = _context.Respostas.FirstOrDefault(p => p.Id == resposta.Id);
+                var respostaBanco = _respostasRepository.BuscarRespostaPorId(resposta.Id);
 
                 if (respostaBanco == null)
                 {
@@ -344,6 +412,26 @@ namespace api.Controllers
                 respostaBanco.Conteudo = resposta.Conteudo;
                 respostaBanco.Correta = resposta.Correta;
                 respostaBanco.Erro = resposta.Erro;
+
+            }
+
+            //preciso fazer a verificacao nas tags, se tiver uma tag nova eu preciso procurar no bd e ver se ela existe, se nao existir eu a crio e coloco o id, se existir eu apenas a adiciono
+
+            foreach (var tag in pergunta.TAGs)
+            {
+
+                Console.WriteLine(tag.Texto);
+
+                var tagBanco = _context.TAGs.FirstOrDefault(t => t.Texto == tag.Texto.ToLower().Trim());
+
+                if (tagBanco == null)
+                {
+                    tag.Id = Guid.NewGuid();
+                     _context.TAGs.Add(tag);
+                    perguntaBanco.TAGs.Add(tag);
+                     _context.SaveChanges();
+
+                }
 
             }
 

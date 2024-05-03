@@ -247,6 +247,10 @@ function salvarJSON() {
 var idCounter = 2;
 
 function criarTagHTML() {
+
+  //remove o evento de submit
+
+  event.preventDefault();
   var boxTag = document.getElementById("boxCriarTags");
 
   var html = `<div class="boxTag">

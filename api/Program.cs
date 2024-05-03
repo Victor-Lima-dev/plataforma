@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using api.context;
+using api.Repositorios.Interfaces;
+using api.Repositorios.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,9 @@ string mySqlConnectionStr = builder.Configuration.GetConnectionString("DefaultCo
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql (mySqlConnectionStr, ServerVersion. AutoDetect (mySqlConnectionStr)));
 
+builder.Services.AddScoped<IPerguntaRepository, PerguntaRepository>();
+builder.Services.AddScoped<IRespostasRepository, RespostasRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
